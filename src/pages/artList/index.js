@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Button } from 'antd';
 class ArtList extends Component {
     constructor (props) {
         super(props)
@@ -8,7 +9,9 @@ class ArtList extends Component {
     }
     render(){
         return (
-            <div>{this.state.msg}</div>
+            <div>
+                <Button>{this.state.msg}</Button>
+            </div>
         )
     }
 }

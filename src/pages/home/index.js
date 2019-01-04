@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import connect from '../../util/redux-connect'
 import { action } from './store'
-
+import CherryBlossoms from '../../components/CherryBlossoms/index'
 import './index.scss'
-import { Button } from 'antd';
 
 @connect('home',action)
 class Home extends Component {
@@ -13,15 +12,15 @@ class Home extends Component {
             msg:'hello world'
         }
     }
-    test(text){
-        // this.props.todoapp(text)
-        this.props.history.push('/artlist')
-    }
     render(){
         return (
             <div>
-                <Button onClick={()=>this.test('222')} type="primary">Button2</Button>
-                {this.props.text}
+                <CherryBlossoms>
+                    <div>
+                        hello
+                        <div> world</div>
+                    </div>
+                </CherryBlossoms>
             </div>
         )
     }
