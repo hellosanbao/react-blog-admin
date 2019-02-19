@@ -1,5 +1,12 @@
 import React, { Component } from 'react'
 import { Button } from 'antd';
+import {
+    observer,
+    inject,
+} from 'mobx-react'
+
+@inject('ArtListState')
+@observer
 class ArtList extends Component {
     constructor (props) {
         super(props)
@@ -10,7 +17,7 @@ class ArtList extends Component {
     render(){
         return (
             <div>
-                <Button>{this.state.msg}</Button>
+                <Button>{this.props.ArtListState.title}</Button>
             </div>
         )
     }

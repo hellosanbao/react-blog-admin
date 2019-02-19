@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import { Provider } from 'react-redux'
+import { Provider } from 'mobx-react'
+import stores from '../store'
 import Route from '../routes'
-import store from '../store'
 import './App.scss';
-
-
 class App extends Component {
   render() {
     return (
-      <Provider store={store}>
+      <Provider {...stores}>
         <Route/>
       </Provider>
     );
