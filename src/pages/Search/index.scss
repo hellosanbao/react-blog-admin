@@ -1,0 +1,30 @@
+.Search{
+    form{
+        height: 120px;
+        .searchHeader{
+            height: 120px;
+            position: fixed;
+            left: 0;
+            right:0;
+            top:0;
+            z-index: 100;
+            background: $bg;
+            input{
+                background: $searchBg;
+                border: 0;
+                outline: none;
+                height: 70px;
+                margin-left: 30px;
+                border-radius: 70px;
+                text-indent: 30px;
+            }
+            .cancel{
+                width: 120px;
+                text-align: center;
+                color: $activePink;
+                font-size: 30px;
+                font-weight: 600;
+            }
+        }
+    }
+}

@@ -6,7 +6,7 @@ import './App.scss';
 class App extends Component {
   render() {
     return (
-      <Provider {...stores}>
+      <Provider {...stores} history = {this.props.history}>
         <Route/>
       </Provider>
     );

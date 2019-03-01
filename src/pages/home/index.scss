@@ -1,3 +1,17 @@
-div{
-    color: $bg;
+.home{
+    &::before{
+        content: '';
+        display: block;
+        height: 108px;
+    }
+    .headFix{
+        position: fixed;
+        left: 0;
+        top:0;
+        z-index: 100;
+        width: 100%;
+    }
+    .homeContainer{
+        width: 100%;
+    }
 }

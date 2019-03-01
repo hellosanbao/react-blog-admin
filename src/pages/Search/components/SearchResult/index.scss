@@ -1,0 +1,35 @@
+.header {
+    height: 90px;
+    .list {
+        height: 90px;
+        line-height: 90px;
+        border-bottom: 1px solid $border;
+        padding: 0 30px;
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 120px;
+        background: $bg;
+        z-index: 100;
+        .item {
+            text-align: center;
+            color: $fcolor6;
+            span {
+                height: 90px;
+                line-height: 90px;
+                display: inline-block;
+                font-size: 30px;
+                box-sizing: border-box;
+                border-bottom: 1px solid transparent;
+            }
+            &.active {
+                span {
+                    font-weight: 600;
+                    color: $activePink;
+                    border-bottom: 4px solid $activePink;
+                }
+            }
+        }
+    }
+    .resultList{}
+}

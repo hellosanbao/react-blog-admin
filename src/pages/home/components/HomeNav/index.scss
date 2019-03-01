@@ -1,0 +1,14 @@
+.home-nav{
+    padding: 40px 0;
+    background: $bg;
+    .nav-item{
+        flex:1;
+        text-align: center;
+        color: $gary1;
+        img{
+            width: 60px;
+            display: block;
+            margin: 0 auto 10px;
+        }
+    }
+}

@@ -1,0 +1,61 @@
+.book-list {
+    padding: 15px 0 10px;
+    background: $bg;
+    .book-item {
+        padding: 15px 30px 0;
+        .book-cover {
+            width: 130px;
+            height: 190px;
+            border-radius: 6px;
+            margin-right: 20px;
+            box-shadow: 0 0 10px 5px rgba(0, 0, 0, .1);
+        }
+        .info {
+            padding-bottom: 20px;
+            &.last {
+                border: 0;
+                padding-bottom: 0;
+            }
+            .book-title {
+                font-size: 30px;
+                font-weight: 600;
+            }
+            .book-desc {
+                margin-top: 20px;
+                font-size: 25px;
+                color: $gary2;
+            }
+            .hot {
+                .txt {
+                    color: $fcolor6;
+                    margin-right: 25px;
+                    font-size: 22px;
+                }
+                span {
+                    color: rgb(192, 51, 62);
+                }
+            }
+            .tip {
+                margin-top: 20px;
+                .auth {
+                    color: $gary2;
+                    font-size: 23px;
+                    .iconfont {
+                        font-size: 20px;
+                        color: $gary1;
+                        margin-right: 5px;
+                    }
+                }
+                .tag {
+                    span {
+                        @include tag;
+                        &.pink{
+                            color: #e5aaa7;
+                            background: #f7edec;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

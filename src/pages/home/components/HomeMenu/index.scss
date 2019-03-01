@@ -1,0 +1,26 @@
+.HomeMenu {
+    height: 50px;
+    overflow: hidden;
+    border-bottom: 1px solid $border;
+    background: $bg;
+    .menu-list {
+        height: 70px;
+        line-height: 50px;
+        overflow-x: scroll;
+        word-break: keep-all;
+        padding: 0 10px;
+        -webkit-overflow-scrolling: touch;
+        .menu-item {
+            font-size: 27px;
+            margin: 0 20px;
+            line-height: 50px;
+            padding-bottom: 12px;
+            display: inline;
+            &.active {
+                color: $activePink;
+                font-weight: 700;
+                border-bottom: 6px solid $activePink;
+            }
+        }
+    }
+}

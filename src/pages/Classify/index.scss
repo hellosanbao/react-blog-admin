@@ -1,0 +1,41 @@
+.Classify{
+    padding-left: 140px;
+    padding-bottom: 400px;
+    .leftMenu{
+        position: fixed;
+        left: 0;
+        top:0;
+        bottom:0;
+        height: 100%;
+        width: 140px;
+        border-right: 1px solid $border;
+        text-align: center;
+        background: $bg;
+        .item{
+            border-left: 8px solid transparent;
+            display: block;
+            color: $fcolor6;
+            &.active{
+                color: $activePink;
+                border-left: 8px solid $activePink;
+                background: $border;
+                box-sizing: border-box;
+                font-weight: 600;
+                span{
+                    border-color: transparent;
+                }
+            }
+            span{
+                display: inline-block;
+                border-bottom: 1px solid $searchBg;
+                font-size: 30px;
+                padding: 30px 0;
+            }
+        }
+    }
+    .rightClass{
+       overflow-y: scroll;
+       overflow-x: hidden;
+       -webkit-overflow-scrolling: touch;
+    }
+}

@@ -1,0 +1,74 @@
+.SearchShuDanList{
+    background: $bg;
+    padding: 0 30px;
+    overflow-x: hidden;
+    .itemContent{
+        padding: 40px 20px;
+        border-bottom: 1px solid $border;
+        &.last{
+            border: none;
+        }
+        .info{
+            margin-right: 20px;
+            .title{
+                font-size: 27px;
+                font-weight: 700;
+                color: $fcolor6;
+            }
+            .tags{
+                margin: 10px 0;
+                .tag{
+                    font-size: 15px;
+                    padding: 7px 10px;
+                    border-radius: 5px;
+                    margin-right: 10px;
+                    &.tag0{
+                        background:#fef6d5; 
+                        color: #d39f44;
+                    }
+                    &.tag1{
+                        background:#f7edec; 
+                        color: #e5aaa7;
+                    }
+                    &.tag2{
+                        background:#e9eff9; 
+                        color: #a0b8e9;
+                    }
+                }
+            }
+            .desc{
+                color: $fcolor6;
+                margin-bottom: 18px;
+                margin-top: 15px;
+            }
+            .tip{
+                color: $fcolor8;
+                margin-top: 15px;
+            }
+        }
+        .cover{
+            position: relative;
+            width: 200px;
+            transform: translateX(60px);
+            img{
+                width: 100px;
+                height: 150px;
+                box-shadow: 0 0 10px 5px rgba(0,0,0,.1);
+                &.img1{
+                    position: absolute;
+                    left: 0;
+                    top:0;
+                    transform: scale(.85) translateX(-60px);
+                    z-index: -1;
+                }
+                &.img3{
+                    position: absolute;
+                    left: 0;
+                    top:0;
+                    transform: scale(.85) translateX(60px);
+                    z-index: -1;
+                }
+            }
+        }
+    }
+}

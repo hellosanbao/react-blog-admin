@@ -1,0 +1,72 @@
+.Rank {
+    .header {
+        height: 90px;
+        .list {
+            height: 90px;
+            line-height: 90px;
+            border-bottom: 1px solid $border;
+            padding: 0 30px;
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            background: $bg;
+            z-index: 100;
+            .item {
+                text-align: center;
+                color: $fcolor6;
+                span {
+                    height: 90px;
+                    line-height: 90px;
+                    display: inline-block;
+                    font-size: 30px;
+                    box-sizing: border-box;
+                    border-bottom: 1px solid transparent;
+                }
+                &.active {
+                    span {
+                        font-weight: 600;
+                        color: $activePink;
+                        border-bottom: 4px solid $activePink;
+                    }
+                }
+            }
+        }
+    }
+    .content {
+        .leftMenu {
+            width: 140px;
+            flex:0 0 140px;
+            .list {
+                width: 140px;
+                position: fixed;
+                left: 0;
+                top: 90px;
+                bottom: 0;
+                border-right: 1px solid $border;
+                .item{
+                    height: 100px;
+                    font-size: 27px;
+                    border-bottom: 1px solid $border;
+                    .tx{
+                        color: $fcolor6;
+                        width: 100%;
+                        text-align: center;
+                        box-sizing: border-box;
+                        border-left: 4px solid transparent;
+                    }
+                    &.active{
+                        background: $searchBg;
+                        .tx{
+                            color: $activePink;
+                            border-left: 4px solid $activePink;
+                        }
+                    }
+                }
+            }
+        }
+        .rightContent{
+            
+        }
+    }
+}

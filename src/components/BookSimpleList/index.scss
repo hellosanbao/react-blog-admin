@@ -1,0 +1,16 @@
+.book-simple-list{
+    background: $bg;
+    padding: 10px 0 20px 15px;
+    .item{
+        width: 150px;
+        margin: 0 15px;
+        // text-align: center;
+        font-size: 22px;
+        img{
+            width: 150px;
+            height: 190px;
+            border-radius: 6px;
+            box-shadow: 0 0 10px 5px rgba(0,0,0,.1);
+        }
+    }
+}

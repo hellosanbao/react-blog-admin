@@ -1,0 +1,28 @@
+.BookShelf{
+    .list{
+        padding: 0 30px;
+        .item{
+            margin-top:40px;
+            .pic{
+                flex:0 0 90px;
+                img{
+                    width: 80px;
+                    height: 110px;
+                    @include boxShadow;
+                }
+            }
+            .info{
+                margin-left: 25px;
+                padding-right: 30px;
+                .title{
+                    font-size: 30px;
+                    font-weight: 600;
+                }
+                .desc{
+                    font-size: 23px;
+                    color: $fcolor9;
+                }
+            }
+        }
+    }
+}

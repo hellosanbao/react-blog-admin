@@ -1,0 +1,30 @@
+.History{
+    .title {
+        padding: 20px 30px;
+        margin-top: 15px;
+        .txt {
+            font-size: 30px;
+            color: $fcolor6;
+            font-weight: 600;
+        }
+        .right {
+            font-size: 20px;
+            color: $fcolor9;
+            .iconfont {
+                font-size: 20px;
+            }
+        }
+    }
+    .list{
+        padding: 0 30px;
+        .item{
+            font-size: 26px;
+            color: $fcolor6;
+            padding: 10px 0;
+            .iconfont{
+                font-size: 26px;
+                margin-right: 10px;
+            }
+        }
+    }
+}

@@ -1,0 +1,35 @@
+.BookListDetail{
+    .user{
+        padding: 30px;
+        .avatar{
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+        }
+        .info{
+            margin-left: 30px;
+            font-size: 24px;
+            .name{
+                color: $fcolor4;
+                font-weight: 600;
+            }
+            .time{
+                color: $fcolor9;
+            }
+        }
+    }
+    .intro{
+        padding: 0 30px 40px;
+        border-bottom: 1px solid $border;
+        .title{
+            font-size: 35px;
+            color: $fcolor4;
+            margin-top: 10px;
+        }
+        .desc{
+            font-size: 26px;
+            color: $fcolor6;
+            margin-top: 25px;
+        }
+    }
+}

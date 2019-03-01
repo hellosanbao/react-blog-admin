@@ -94,6 +94,7 @@ module.exports = function(webpackEnv) {
             require('postcss-preset-env')({
               autoprefixer: {
                 flexbox: 'no-2009',
+                remove: false
               },
               stage: 3,
             }),
@@ -101,6 +102,12 @@ module.exports = function(webpackEnv) {
           sourceMap: isEnvProduction && shouldUseSourceMap,
         },
       },
+      {
+        loader: 'px2rem-loader',
+        options: {
+          remUnit: 75
+        }
+      }
     ].filter(Boolean);
     if (preProcessor) {
       loaders.push({
@@ -279,6 +286,7 @@ module.exports = function(webpackEnv) {
         '@pages':path.resolve(__dirname,'../src/pages'),
         '@loadable':path.resolve(__dirname,'../src/util/loadable'),
         '@assets':path.resolve(__dirname,'../src/assets'),
+        '@src':path.resolve(__dirname,'../src'),
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding

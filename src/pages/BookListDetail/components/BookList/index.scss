@@ -1,0 +1,40 @@
+.BookList{
+   .list{
+       padding: 0 30px;
+       .item{
+           border-bottom: 1px solid $border;
+           margin-top: 40px;
+           padding-bottom: 40px;
+           .book{
+               img{
+                   width: 120px;
+                   @include boxShadow
+               }
+               .info{
+                   margin-left: 30px;
+                   font-size: 23px;
+                   color: $fcolor9;
+                   .title{
+                       font-size: 30px;
+                       color: $fcolor6;
+                       font-weight: 600;
+                   }
+                   .auth{
+                       margin-top: 15px;
+                   }
+                   .tip{
+                       margin-top: 15px;
+                       span{
+                           margin-right: 20px;
+                       }
+                   }
+               }
+           }
+           .bookIntro{
+               font-size: 25px;
+               color: $fcolor6;
+               padding: 40px 0 0;
+           }
+       }
+   } 
+}

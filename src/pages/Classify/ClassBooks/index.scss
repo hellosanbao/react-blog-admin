@@ -1,0 +1,55 @@
+.ClassBooks{
+    .title{
+        font-size: 30px;
+        font-weight: 600;
+        color: $fcolor9;
+        text-align: center;
+        height: 100px;
+        span{
+            padding: 0 40px;
+        }
+        &::before,&::after{
+            content: "";
+            display: block;
+            width: 100px;
+            border-bottom: 1px solid $fcolor9;
+        }
+    }
+    .list{
+        padding: 0 15px;
+        .item{
+            background: $searchBg;
+            width: 282px;
+            margin-bottom:15px; 
+            .info{
+                padding:20px 10px 20px 20px;
+                width: 120px;
+                .name{
+                    font-size: 28px;
+                }
+                .books{
+                    font-size: 20px;
+                    color: $fcolor9;
+                }
+            }
+            .pic{
+                position: relative;
+                img{
+                    position: absolute;
+                    width: 70px;
+                    left:0;
+                    bottom:0;
+                    margin-left: 40px;
+                    &.img0{
+                        width: 60px;
+                        transform:translateX(-35%);
+                    }
+                    &.img1{
+                        width: 50px;
+                        transform: translateX(60%);
+                    }
+                }
+            }
+        }
+    }
+}
