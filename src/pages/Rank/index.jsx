@@ -1,41 +1,86 @@
 import React, { Component } from 'react'
+import { inject, observer } from 'mobx-react'
+import { scrollBottom } from '@src/util/util'
 
 import './index.scss'
 
-import menuData from './data/menu'
-import books from './data/book'
-
 //components
 import BookList from './components/BookList'
+import Loading from '@src/components/Loading'
+import LoadMore from '@src/components/LoadMore'
 
+
+@inject('RankState')
+@observer
 class Rank extends Component {
     constructor(props) {
         super(props)
         document.title = "排行榜"
+        this.start = 1
     }
     state = {
         currentMenuIndex: 0,
         currentSubMenuList: [],
         currentSubMenuIndex: 0,
+        currBookListId: -1,
         menu: [],
-        bookList:[]
+        bookList: [],
+        loading: true,
+        hasMore:true
     }
-    componentDidMount() {
+    async componentDidMount() {
+        const { getMenuData } = this.props.RankState
+        let MenuData = await getMenuData(this)
+        let currentSubMenuList = MenuData[0].nodes
+        await this.changeList(currentSubMenuList[0].id)
+        this.start++
         this.setState({
-            menu: menuData,
-            currentSubMenuList: menuData[0].nodes,
-            bookList:books
+            menu: MenuData,
+            currentSubMenuList,
+            currBookListId: currentSubMenuList[0].id,
+            loading: false
+        })
+
+        scrollBottom(100, async () => {
+            const { currBookListId, hasMore } = this.state
+            if(!hasMore) return
+            const { getRankBookList } = this.props.RankState
+            let bookList = await getRankBookList({ start:this.start, limit:20, id:currBookListId }, this)
+            this.start++
+            this.setState({
+                hasMore:bookList.length>0,
+                bookList:this.state.bookList.concat(bookList)
+            })
         })
     }
-    handleMenuClick(currentMenuIndex) {
+    async handleMenuClick(currentMenuIndex) {
         this.setState({
             currentMenuIndex,
             currentSubMenuIndex: 0,
-            currentSubMenuList: menuData[currentMenuIndex].nodes
+            currentSubMenuList: this.state.menu[currentMenuIndex].nodes
         })
+        this.changeList(this.state.menu[currentMenuIndex].nodes[0].id)
     }
     handleSubMenuClick(currentSubMenuIndex) {
-        this.setState({ currentSubMenuIndex })
+        const { currentMenuIndex, menu } = this.state
+        this.setState({ 
+            currentSubMenuIndex
+        })
+        this.changeList(menu[currentMenuIndex].nodes[currentSubMenuIndex].id)
+    }
+    async changeList(id,start=1,limit=20) {
+        const { getRankBookList } = this.props.RankState
+        if (this.state.currBookListId == id) return
+        this.start = 2
+        this.setState({
+            bookList: [],
+            hasMore:true
+        })
+        let bookList = await getRankBookList({ start, limit, id }, this)
+        this.setState({
+            bookList,
+            currBookListId: id
+        })
     }
     render() {
         const {
@@ -43,8 +88,11 @@ class Rank extends Component {
             currentMenuIndex,
             currentSubMenuList,
             currentSubMenuIndex,
-            bookList
+            bookList,
+            loading,
+            hasMore
         } = this.state
+        if (loading) return <Loading />
         return (
             <div className="Rank">
                 <div className="header">
@@ -82,7 +130,10 @@ class Rank extends Component {
                         </div>
                     </div>
                     <div className="rightContent flex1">
-                        <BookList list={bookList} />
+                        {
+                            bookList.length > 0 && (<BookList list={bookList} />)
+                        }
+                        <LoadMore more={hasMore} />
                     </div>
                 </div>
             </div>

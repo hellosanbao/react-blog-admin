@@ -4,7 +4,7 @@ import 'animate.css/animate.min.css'
 export function wrapAnimation(WrappedComponent) {
     return class extends Component {
         state={
-            show:false
+            show:true
         }
         componentDidMount(){
             this.setState({

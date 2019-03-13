@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
+import { observer, inject} from 'mobx-react'
 
 import './index.scss'
 
-import data from './data'
-
-let hotdata = data.splice(0,15)
-
-console.log(hotdata)
-
+@inject('SearchState')
+@observer
 class HotKeyword extends Component {
     render() {
+        const { submit } = this.props.SearchState
+        const { initData } = this.props.SearchState
+        if(!initData.hotKeys) return ''
         return (
             <div className="HotKeyword">
                 <div className="title flex-between flex-middle">
@@ -18,8 +18,8 @@ class HotKeyword extends Component {
                 </div>
                 <div className="keyWordList">
                     {
-                        hotdata.map(item => {
-                            return (<span key={item.word} className="item">{item.word}</span>)
+                        initData.hotKeys.map(item => {
+                            return (<span key={item.word} className="item" onClick={()=>{submit(item.word)}}>{item.word}</span>)
                         })
                     }
                 </div>

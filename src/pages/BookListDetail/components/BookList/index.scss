@@ -2,6 +2,7 @@
    .list{
        padding: 0 30px;
        .item{
+           display: block;
            border-bottom: 1px solid $border;
            margin-top: 40px;
            padding-bottom: 40px;

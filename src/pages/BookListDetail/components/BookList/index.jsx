@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import './index.scss'
 
 class BookList extends Component {
@@ -10,7 +11,7 @@ class BookList extends Component {
                     {
                         booklist.map(item => {
                             return (
-                                <div className="item" key={item.book._id}>
+                                <Link to={`BookDetail?id=${item.book._id}&title=${item.book.title.trimHash()}`} className="item" key={item.book._id}>
                                     <div className="book flex-middle">
                                         <img src={item.book.cover.formatImg()} alt="" />
                                         <div className="info">
@@ -26,7 +27,7 @@ class BookList extends Component {
                                         item.comment?(<div className="bookIntro">{`"${item.comment}"`}</div>):""
                                     }
                                     
-                                </div>
+                                </Link>
                             )
                         })
                     }

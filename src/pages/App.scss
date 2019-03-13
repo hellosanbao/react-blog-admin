@@ -1,6 +1,14 @@
 @import '~@assets/style/reset.scss';
 @import '~@assets/style/iconfont.css';
+@import '~animate.css/animate.min.css';
 
+html{
+  padding-bottom: 74px;
+  overflow-x: hidden;
+}
+body{
+  overflow-x: hidden;
+}
 body::after{
   content:'';
   display: block;
@@ -11,4 +19,8 @@ body::after{
   bottom:0;
   z-index: -99;
   background: $bg;
+}
+body.modal-open {
+  position: fixed;
+  width: 100%;
 }

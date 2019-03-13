@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 // import { Link } from 'react-router-dom'
-import { wrapAnimation } from '@src/util/wrapAnimation'
 import { observer, inject } from 'mobx-react'
 
 //components
-import ReactSwiper from '@src/components/ReactSwiper'
-import SwiperItem from '@src/components/ReactSwiper/components/SwiperItem'
+// import ReactSwiper from '@src/components/ReactSwiper'
+// import SwiperItem from '@src/components/ReactSwiper/components/SwiperItem'
 import HomeHead from './components/HomeHead'
-import HomeMenu from './components/HomeMenu'
+// import HomeMenu from './components/HomeMenu'
 import Featured from './components/Featured'
 
 import './index.scss'
@@ -70,4 +69,4 @@ class Home extends Component {
     }
 }
 
-export default wrapAnimation(Home)
+export default Home

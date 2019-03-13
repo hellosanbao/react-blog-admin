@@ -1,35 +1,52 @@
-.header {
-    height: 90px;
-    .list {
+.SearchResult{
+    position: fixed;
+    left:0;
+    right:0;
+    top:120px;
+    bottom: 0;
+    z-index: 10;
+    .header {
         height: 90px;
-        line-height: 90px;
-        border-bottom: 1px solid $border;
-        padding: 0 30px;
-        position: fixed;
-        left: 0;
-        right: 0;
-        top: 120px;
-        background: $bg;
-        z-index: 100;
-        .item {
-            text-align: center;
-            color: $fcolor6;
-            span {
-                height: 90px;
-                line-height: 90px;
-                display: inline-block;
-                font-size: 30px;
-                box-sizing: border-box;
-                border-bottom: 1px solid transparent;
-            }
-            &.active {
+        .list {
+            height: 90px;
+            line-height: 90px;
+            border-bottom: 1px solid $border;
+            padding: 0 30px;
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 120px;
+            background: $bg;
+            z-index: 100;
+            .item {
+                text-align: center;
+                color: $fcolor6;
                 span {
-                    font-weight: 600;
-                    color: $activePink;
-                    border-bottom: 4px solid $activePink;
+                    height: 90px;
+                    line-height: 90px;
+                    display: inline-block;
+                    font-size: 30px;
+                    box-sizing: border-box;
+                    border-bottom: 1px solid transparent;
+                }
+                &.active {
+                    span {
+                        font-weight: 600;
+                        color: $activePink;
+                        border-bottom: 4px solid $activePink;
+                    }
                 }
             }
         }
     }
-    .resultList{}
+    .searchResultSwiper{
+        height: calc(100% - 90px);
+        .swiper-wrapper,.swiper-slide,.resultList{
+            height: 100%!important;
+        }
+        .swiper-slide{
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+        }
+    }
 }

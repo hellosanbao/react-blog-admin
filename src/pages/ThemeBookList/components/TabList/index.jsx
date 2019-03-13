@@ -4,8 +4,12 @@
 
 import React, { Component } from 'react'
 import { findIndex } from 'lodash'
+import { observer, inject } from "mobx-react";
+import { ModalHelper } from '@src/util/util'
 import './index.scss'
 
+@inject('ThemeBookListState')
+@observer
 class TabList extends Component {
     state = {
         nameIndex: -1,
@@ -41,91 +45,10 @@ class TabList extends Component {
                 name: '职场'
             }
         ],
-        filterTag: [
-            {
-                "name": "性别",
-                "tags": [
-                    "男生",
-                    "女生",
-                ]
-            },
-            {
-                "name": "时空",
-                "tags": [
-                    "都市",
-                    "古代",
-                    "科幻",
-                    "架空",
-                    "重生",
-                    "未来",
-                    "穿越",
-                    "历史",
-                    "快穿",
-                    "末世",
-                    "异界位面"
-                ]
-            },
-            {
-                "name": "情感",
-                "tags": [
-                    "纯爱",
-                    "热血",
-                    "言情",
-                    "现言",
-                    "古言",
-                    "情有独钟",
-                    "搞笑",
-                    "青春",
-                    "欢喜冤家",
-                    "爽文",
-                    "虐文"
-                ]
-            },
-            {
-                "name": "人设",
-                "tags": [
-                    "同人",
-                    "娱乐明星",
-                    "女强",
-                    "帝王",
-                    "职场",
-                    "女配",
-                    "网配",
-                    "火影",
-                    "金庸",
-                    "豪门",
-                    "扮猪吃虎",
-                    "谋士",
-                    "特种兵",
-                    "教师"
-                ]
-            },
-            {
-                "name": "流派",
-                "tags": [
-                    "变身",
-                    "悬疑",
-                    "系统",
-                    "网游",
-                    "推理",
-                    "玄幻",
-                    "武侠",
-                    "仙侠",
-                    "恐怖",
-                    "奇幻",
-                    "洪荒",
-                    "犯罪",
-                    "百合",
-                    "种田",
-                    "惊悚",
-                    "轻小说",
-                    "技术流",
-                    "耽美",
-                    "竞技",
-                    "无限"
-                ]
-            }
-        ]
+    }
+    async componentWillMount() {
+        const { getFilterTags } = this.props.ThemeBookListState
+        await getFilterTags(this)
     }
     toogleFilter() {
         const { onToggleFilter } = this.props
@@ -134,22 +57,37 @@ class TabList extends Component {
         })
         onToggleFilter && onToggleFilter(!this.state.showFilter)
     }
-    handleHeadClick(index) {
+    async handleHeadClick(index) {
         this.setState({
             currentHead: index
         })
+        let sort = 'collectorCount', duration = 'all'
+        if(index == 0){
+            duration= 'last-seven-days'
+        }else if(index ==1){
+            sort = 'created'
+        }
+        this.changeTag({
+            sort,
+            duration
+        })
+
     }
-    handleSubClick(index) {
-        let sub  = [{ nameIndex: -1, tagIndex: -1, name: '全部' },...this.state.sub]
-        let { tagIndex, nameIndex } = sub[index]
+    async handleSubClick(index) {
+        if(index == this.state.currentSub) return
+        let sub = [{ nameIndex: -1, tagIndex: -1, name: '全部' }, ...this.state.sub]
+        let { tagIndex, nameIndex, name } = sub[index]
         this.setState({
             currentSub: index,
-            tagIndex, 
+            tagIndex,
             nameIndex
         })
+        this.changeTag({tag:name})
+        
     }
     handleCoverTagClick(nameIndex, tagIndex) {
         const { sub } = this.state
+        const { FilterTags } = this.props.ThemeBookListState
         this.setState({
             nameIndex,
             tagIndex,
@@ -158,9 +96,9 @@ class TabList extends Component {
         let currentTag = {
             nameIndex,
             tagIndex,
-            name:this.state.filterTag[nameIndex].tags[tagIndex]
+            name: FilterTags[nameIndex].tags[tagIndex]
         }
-        let currentIndex = findIndex(sub,{name:currentTag.name})
+        let currentIndex = findIndex(sub, { name: currentTag.name })
         if (currentIndex < 0) {
             sub.unshift(currentTag)
             sub.splice(sub.length - 1, 1)
@@ -172,11 +110,25 @@ class TabList extends Component {
                 currentSub: currentIndex + 1
             })
         }
-
+        this.changeTag({tag:currentTag.name})
+    }
+    async changeTag(opt){
+        const { getBooksByTag, setBookList } = this.props.ThemeBookListState
+        let books = await getBooksByTag({
+            ...opt,
+            start:0
+        })
+        setBookList(books.bookLists)
     }
     render() {
         const { showFilter, sub } = this.state
-        let sublist = [{ nameIndex: -1, tagIndex: -1, name: '全部' },...sub]
+        const { FilterTags } = this.props.ThemeBookListState
+        let sublist = [{ nameIndex: -1, tagIndex: -1, name: '全部' }, ...sub]
+        if(showFilter){
+            ModalHelper.afterOpen()
+        }else{
+            ModalHelper.beforeClose()
+        }
         return (
             <div className="TabList">
                 <div className="warp">
@@ -221,7 +173,7 @@ class TabList extends Component {
                         ) : ''}
 
                         <div className={`coverTabs ${showFilter ? 'show' : ''}`}>
-                            {this.state.filterTag.map((item, nameIndex) => {
+                            {FilterTags.map((item, nameIndex) => {
                                 return (
                                     <div key={item.name} className="block">
                                         <div className="title">{item.name}</div>

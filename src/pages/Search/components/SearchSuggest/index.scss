@@ -1,0 +1,31 @@
+.searchSuggest{
+    position: fixed;
+    left: 0;
+    right:0;
+    top:120px;
+    bottom:0;
+    z-index: 99;
+    background: #fff;
+    animation: SuggestFadeIn 150ms ease-in;
+    padding: 0 30px;
+    .item{
+        height: 100px;
+        border-bottom: 1px solid $border;
+        font-size: 34px;
+        color: $fcolor6;
+        .iconfont{
+            padding-right: 10px;
+        }
+    }
+}
+
+@keyframes SuggestFadeIn {
+    0%{
+        transform: translateY(-2%);
+        opacity: 0;
+    }
+    100%{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

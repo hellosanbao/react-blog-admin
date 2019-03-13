@@ -8,9 +8,6 @@ class HomeMenu extends Component {
             currentIndex: 0
         }
     }
-    componentDidMount() {
-        console.log(this.props.menuList)
-    }
     setCurrent(currentIndex) {
         if (currentIndex === this.state.currentIndex) return
         this.setState({

@@ -38,6 +38,7 @@
     "jest": "23.6.0",
     "jest-pnp-resolver": "1.0.1",
     "jest-resolve": "23.6.0",
+    "jquery": "^3.3.1",
     "lib-flexible": "^0.3.2",
     "lodash": "^4.17.11",
     "mini-css-extract-plugin": "0.4.3",
@@ -52,6 +53,7 @@
     "postcss-safe-parser": "4.0.1",
     "prop-types": "^15.6.2",
     "px2rem-loader": "^0.1.9",
+    "querystring": "^0.2.0",
     "react": "^16.7.0",
     "react-app-polyfill": "^0.2.0",
     "react-dev-utils": "^7.0.0",
@@ -79,12 +81,15 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "push":"yarn build && ssh ubuntu@132.232.3.185 rm -rf /home/ubuntu/github/zhuishushenqi/build && scp -r ./build/ ubuntu@132.232.3.185:/home/ubuntu/github/zhuishushenqi/"
   },
   "eslintConfig": {
     "extends": "react-app",
-    "rules":{
-      "no-extend-native":0
+    "rules": {
+      "no-extend-native": 0,
+      "eqeqeq": 0,
+      "jsx-a11y/iframe-has-title":0
     }
   },
   "browserslist": [

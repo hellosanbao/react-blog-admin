@@ -28,7 +28,7 @@ class SearchShuDanList extends Component {
                 {
                     sdList.map((itemData,index)=>{
                         return (
-                            <Link to="/BookListDetail" key={itemData.title+index} className={`itemContent flex-middle ${index+1 === sdList.length?'last':''}`}>
+                            <Link to={`/BookListDetail?title=${itemData.title.trimHash()}&id=${itemData._id}`} key={itemData.title+index} className={`itemContent flex-middle ${index+1 === sdList.length?'last':''}`}>
                                 <div className="info flex1">
                                     <div className="title line-clamp1">{itemData.title}</div>
                                     <div className="tip">{itemData.bookCount}本 | {itemData.collectorCount}收藏</div>

@@ -1,14 +1,43 @@
 import React, { Component } from 'react'
+import { inject, observer} from 'mobx-react'
+import querystring from 'querystring'
 
 import './index.scss'
 
-import data from './data'
-
 //components
 import BookList from './components/BookList'
+import Loading from '@src/components/Loading'
+import LoadMore from '@src/components/LoadMore'
 
+@inject('BookListDetailState')
+@observer
 class BookListDetail extends Component {
+    constructor(props){
+        super(props)
+        const  { title, id }  = querystring.parse(this.props.location.search.replace('?',''))
+        document.title = title
+        this.state = {
+            data:{},
+            loading:true,
+            id
+        }
+    }
+    async componentDidMount(){
+        const { getBokkListDetail } = this.props.BookListDetailState
+        const booListInfo = await getBokkListDetail(this.state.id,this)
+        this.setState({
+            loading:false,
+            data:booListInfo
+        })
+    }
+    componentWillUnmount(){
+        this.cancelRequest()
+    }
     render(){
+        const { data, loading } = this.state
+        if(loading) {
+            return (<Loading/>)
+        }
         return (
             <div className="BookListDetail">
                 <div className="user flex-middle">
@@ -23,6 +52,7 @@ class BookListDetail extends Component {
                     <div className="desc">{data.desc}</div>
                 </div>
                 <BookList booklist = {data.books}/>
+                <LoadMore more={false}/>
             </div>
         )
     }

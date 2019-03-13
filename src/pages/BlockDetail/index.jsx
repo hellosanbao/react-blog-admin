@@ -2,43 +2,83 @@
  * 推荐书单详情页面
  */
 import React, { Component } from 'react'
-import { wrapAnimation } from '@src/util/wrapAnimation'
+import { observer, inject } from 'mobx-react'
+import querystring from 'querystring'
+import { scrollBottom } from '@src/util/util'
 import './index.scss'
 
-import booklist from './data'
 
 //components 
 import BookList from '@src/components/BookList/'
+import Loading from '@src/components/Loading/'
+import LoadMore from '@src/components/LoadMore/'
+
+@inject('BlockDetailState')
+@observer
 class BlockDetail extends Component {
     constructor(props){
         super(props)
-        document.title = '和你同口味的人都在看'
+        const  { title, id }  = querystring.parse(this.props.location.search.replace('?',''))
+        document.title = title
+        this.state = {
+            id,
+            booklist:[],
+            loading:true,
+            hasMore:true
+        }
     }
-    state={
-        booklist:[
-            {
-                cover:'http://statics.zhuishushenqi.com/agent/http%3A%2F%2Fimg.1391.com%2Fapi%2Fv1%2Fbookcenter%2Fcover%2F1%2F45780%2F_45780_829363.jpg%2F',
-                title:'养鬼为祸',
-                desc:'我从出生前就给人算计了，五阴俱全，天生招厉鬼，懂行的先生说我活不过七岁，死后是要给人养成血衣小鬼害人的。外婆为了救我，给我娶了童养媳，让我过起了安生日子，虽然后来我发现媳妇姐姐不是人……从小苟延馋喘的我能活到现在，本已习惯逆来顺受，可唯独外婆被人害死了这件事。为此，我不顾因果报应，继承了外婆养鬼的职业，发誓要把害死她的人全都送下地狱。',
-                human:796,
-                retain:'40.86%'
-            },
-            {
-                cover:'http://statics.zhuishushenqi.com/agent/http%3A%2F%2Fimg.1391.com%2Fapi%2Fv1%2Fbookcenter%2Fcover%2F1%2F45780%2F_45780_829363.jpg%2F',
-                title:'养鬼为祸',
-                desc:'我从出生前就给人算计了，五阴俱全，天生招厉鬼，懂行的先生说我活不过七岁，死后是要给人养成血衣小鬼害人的。外婆为了救我，给我娶了童养媳，让我过起了安生日子，虽然后来我发现媳妇姐姐不是人……从小苟延馋喘的我能活到现在，本已习惯逆来顺受，可唯独外婆被人害死了这件事。为此，我不顾因果报应，继承了外婆养鬼的职业，发誓要把害死她的人全都送下地狱。',
-                human:796,
-                retain:'40.86%'
+    
+    async componentDidMount(){
+        const { getBlockDetailList } = this.props.BlockDetailState
+        const { id } = this.state
+        let start = 1,hasMore = true
+        const booklist = await getBlockDetailList({
+            id,
+            start,
+            limit:20
+        },this)
+        if(booklist.length<20){
+            hasMore = false
+        }
+        start+=20
+        this.setState({
+            booklist,
+            loading:false,
+            hasMore
+        })
+
+        scrollBottom(100,async ()=>{
+            if(!hasMore) return
+            let newList = await getBlockDetailList({
+                id,
+                start,
+                limit:20
+            },this)
+            if(newList.length<20){
+                hasMore = false
             }
-        ],
+            start+=20
+            this.setState({
+                booklist:this.state.booklist.concat(newList),
+                hasMore
+            })
+        })
+    }
+    componentWillUnmount(){
+        this.cancelRequest()
     }
     render() {
+        const { booklist, loading, hasMore } =this.state
+        if(loading){
+            return (<Loading/>)
+        }
         return (
-            <div className="BlockDetail" >
+            <div className="BlockDetail animated fadeIn" >
                 <BookList booklist={booklist}/>
+                <LoadMore more={hasMore}/>
             </div>
         )
     }
 }
 
-export default wrapAnimation(BlockDetail)
+export default BlockDetail

@@ -1,72 +1,72 @@
-.BookDetail{
-    .simperInfo{
+.BookDetail {
+    .simperInfo {
         padding: 30px;
-        .pic{
-            img{
+        .pic {
+            img {
                 width: 170px;
                 height: 240px;
                 @include boxShadow;
                 border-radius: 8px;
             }
         }
-        .info{
+        .info {
             padding: 0 30px;
-            .title{
+            .title {
                 font-size: 35px;
                 margin-bottom: 15px;
                 font-weight: 600;
             }
-            .tip{
+            .tip {
                 font-size: 26px;
-                color:$fcolor7;
+                color: $fcolor7;
                 margin-bottom: 15px;
-                span{
+                span {
                     color: $activePink;
                 }
             }
-            .size{
+            .size {
                 font-size: 26px;
                 color: $fcolor7;
             }
         }
     }
-    .views{
+    .views {
         padding: 0 30px;
-       .point{
-        //    text-align: center;
+        .point {
+            //    text-align: center;
             color: $fcolor8;
             font-family: Arial;
-            &.frist{
+            &.frist {
                 margin-right: 80px;
             }
-           .til{
-               font-size: 40px;
-               font-weight: 600;
-               margin-bottom: 5px;
-               span{
-                   margin-right: 10px;
-               }
-           }
-       } 
+            .til {
+                font-size: 40px;
+                font-weight: 600;
+                margin-bottom: 5px;
+                span {
+                    margin-right: 10px;
+                }
+            }
+        }
     }
-    .intro{
+    .intro {
         padding: 0 30px;
         margin-top: 40px;
         position: relative;
-        .title{
+        .title {
             font-size: 30px;
             color: $fcolor6;
             margin-bottom: 20px;
         }
-        .tx{
+        .tx {
             font-size: 24px;
-            color: $fcolor8;
+            color: $fcolor8
         }
-        .icon-Down{
+        .icon-Down {
             position: absolute;
-            right:50px;
+            right: 50px;
             font-size: 25px;
-            bottom:0;
+            bottom: 0;
             color: $fcolor8;
             background: #fff;
             display: block;
@@ -74,34 +74,34 @@
             text-align: right;
         }
     }
-    .tree{
+    .tree {
         padding: 0 30px;
         height: 100px;
         border-top: 1px solid $border;
         margin-top: 30px;
-        border-bottom:15px solid #f0f0f0;
-        .til{
+        border-bottom: 15px solid #f0f0f0;
+        .til {
             font-size: 28px;
             color: $fcolor6;
             font-weight: 600;
         }
-        .up{
+        .up {
             max-width: 500px;
             color: $fcolor8;
-            .time{
+            .time {
                 color: $activePink;
                 margin-right: 20px;
             }
         }
     }
-    .coment{
-        .title{
+    .coment {
+        .title {
             height: 100px;
             line-height: 100px;
-            border-bottom:1px solid $border;
+            border-bottom: 1px solid $border;
             color: $fcolor9;
             font-size: 22px;
-            span{
+            span {
                 margin-left: 30px;
                 margin-right: 6px;
                 font-size: 28px;
@@ -109,23 +109,23 @@
                 color: $fcolor6;
             }
         }
-        .contentList{
+        .contentList {
             padding: 30px 30px 0;
-            .item{
+            .item {
                 border-bottom: 1px solid $border;
                 padding-top: 30px;
-                .user{
+                .user {
                     margin-bottom: 10px;
-                    .avatar{
+                    .avatar {
                         width: 60px;
                         height: 60px;
                         border-radius: 50%;
                     }
-                    .name{
+                    .name {
                         margin-left: 20px;
                         color: $fcolor6;
                     }
-                    .level{
+                    .level {
                         font-size: 20px;
                         color: $fcolor9;
                         border: 1px solid #bbb;
@@ -134,22 +134,73 @@
                         margin-left: 10px;
                     }
                 }
-                .score{
+                .score {
                     font-size: 20px;
                     color: $fcolor9;
                 }
-                .txt{
+                .txt {
                     color: $fcolor6;
                     padding: 30px 0;
+                    .coment-title {
+                        color: $fcolor3;
+                        font-size: 28px;
+                        margin-bottom: 15px;
+                    }
                 }
             }
         }
-        .more{
+        .more {
             height: 100px;
             line-height: 100px;
             text-align: center;
             color: $activePink;
             font-size: 30px;
+        }
+    }
+    .readbtn {
+        position: fixed;
+        right: 50px;
+        bottom: 50px;
+        width: 70px;
+        height: 70px;
+        padding: 15px;
+        text-align: center;
+        background: $activePink;
+        color: #fff;
+        z-index: 99;
+        border-radius: 50%;
+        @include boxShadow;
+    }
+    .sourceContent{
+        .title{
+            font-size: 30px;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            border-bottom: 1px solid $border;
+            background: $fcolor4;
+            color: #fff;
+        }
+        .sourceList{
+            padding: 30px;
+            height: 600px;
+            box-sizing: border-box;
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+            .item{
+                display: block;
+                height: 100px;
+                line-height: 100px;
+                font-size: 28px;
+                color: $fcolor6;
+                text-align: center;
+                border-bottom: 1px solid $border;
+                &.gf{
+                    background: $activePink;
+                    color: #fff;
+                    border-radius: 5px;
+                }
+            }
         }
     }
 }

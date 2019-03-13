@@ -13,7 +13,7 @@ Number.prototype.toArray = function () {
 Number.prototype.format = function () {
     let res = this
     if (this > 10000) {
-        res = (this / 10000).toFixed(1)
+        res = (this / 10000).toFixed(1)+'万'
     }
     return res
 }
@@ -22,7 +22,11 @@ Number.prototype.format = function () {
 //将图片链接处理成可显示的结果
 String.prototype.formatImg = function () {
     let url = this.indexOf('statics.zhuishushenqi.com') >= 0 ? this : config.imgBaseUrl + this
-    return url
+    return decodeURIComponent(url)
+}
+//去掉字符串中的#
+String.prototype.trimHash = function () {
+    return this.replace(/#/ig,'')
 }
 
 Date.prototype.diff = function () {

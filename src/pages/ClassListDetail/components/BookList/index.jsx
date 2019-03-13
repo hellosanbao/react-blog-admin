@@ -22,7 +22,7 @@ class BookList extends Component {
                 {
                     booklist.map((item, index) => {
                         return (
-                            <Link to="/BookDetail" key={item.title + index} className="book-item flex">
+                            <Link to={`/BookDetail?id=${item._id}&title=${item.title.trimHash()}`} key={item._id + index} className="book-item flex">
                                 <div>
                                     <img src={ item.cover.formatImg() } alt="" className="book-cover" />
                                 </div>

@@ -35,7 +35,7 @@ class ClassBooks extends Component {
                     {
                         list.map(item => {
                             return (
-                                <Link to="/ClassListDetail" key={item.name} className="item flex">
+                                <Link to={`/ClassListDetail/${item.alias}/${item.name}`} key={item.name} className="item flex">
                                     <div className="info">
                                         <p className="name">{item.name}</p>
                                         <p className="books">{item.bookCount}本</p>

@@ -24,7 +24,7 @@ class BookList extends Component {
                 {
                     booklist.map((item, index) => {
                         return (
-                            <Link to="/BookDetail" key={item.title + index} className="book-item flex">
+                            <Link to={`/BookDetail?id=${item._id}&title=${item.title.trimHash()}`} key={item._id+index} className="book-item flex">
                                 <div>
                                     <img src={ item.cover.formatImg() } alt="" className="book-cover" />
                                 </div>
@@ -45,7 +45,7 @@ class BookList extends Component {
                                         <div className="tag">
                                             {item.majorCate ? (<span>{item.majorCate}</span>) : ''}
                                             {item.minorCate ? (<span>{item.minorCate}</span>) : ''}
-                                            {item.wordCount ? (<span>{item.wordCount}万字</span>) : ''}
+                                            {/* {item.wordCount ? (<span>{item.wordCount.format()}字</span>) : ''} */}
                                         </div>
                                     </div>
                                 </div>

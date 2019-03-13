@@ -9,6 +9,7 @@
  * @list {string} author 作者
  */
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import './index.scss'
 
 class BookList extends Component {
@@ -17,11 +18,11 @@ class BookList extends Component {
         return (
             <div className="BookList">
                 {
-                    list.map(item => {
+                    list.map((item,index) => {
                         return (
-                            <div className="item flex-middle flex-between">
+                            <Link to={`/BookDetail?id=${item._id}&title=${item.title.trimHash()}`} key={item._id+index} className="item flex-middle flex-between">
                                 <div className="pic">
-                                    <img src={item.cover.replace('//statics.zhuishushenqi.com/agent/','')} alt="" />
+                                    <img src={item.cover.formatImg()} alt="" />
                                 </div>
                                 <div className="info flex1">
                                     <div className="title line-clamp1">{item.title}</div>
@@ -35,7 +36,7 @@ class BookList extends Component {
                                     </div>
 
                                 </div>
-                            </div>
+                            </Link>
                         )
                     })
                 }

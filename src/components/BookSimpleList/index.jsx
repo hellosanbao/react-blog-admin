@@ -10,9 +10,9 @@ class BookSimpleList extends Component {
                 {
                     booksimplelist.map((item,index)=>{
                         return (
-                            <Link to="/BookDetail" key={item.title + index} className="item">
+                            <Link to={`/BookDetail?id=${item._id}&title=${item.title.trimHash()}`} key={item._id} className="item">
                                 <img src={item.cover} alt=""/>
-                                <p className="line-clamp2">{item.title}</p>
+                                <div className="line-clamp2">{item.title}</div>
                             </Link>
                         )
                     })

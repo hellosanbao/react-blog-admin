@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
+import { inject, observer } from "mobx-react";
 import './index.scss'
 
 //components
 import ClassBooks from './ClassBooks'
+import Loading from '@src/components/Loading'
 
-import data from './data'
 
+@inject('ClassifyState')
+@observer
 class Classify extends Component {
     state = {
         swiperOptions: {
@@ -13,6 +16,7 @@ class Classify extends Component {
             freeMode: true,
             slidesPerView: 'auto'
         },
+        loading:true,
         currentMenu: 0,
         leftMenu: [
             { name: '男生', alias: 'male' },
@@ -21,7 +25,15 @@ class Classify extends Component {
             { name: '出版', alias: 'press' },
         ]
     }
-    componentDidMount(){
+    async componentDidMount(){
+        const { getClassData } = this.props.ClassifyState
+        await getClassData(this)
+        this.setState({
+            loading:false
+        })
+        this.listenScroll()
+    }
+    listenScroll(){
         let doms = document.querySelectorAll('.ClassBooks .title')
         document.addEventListener('scroll',()=>{
             doms.forEach((dom,index)=>{
@@ -41,7 +53,7 @@ class Classify extends Component {
             })
         })
     }
-    handleClassData(){
+    handleClassData(data){
         const { male, female, picture, press} = data
         const nData = { male, female, picture, press }
         let classData = Object.keys(nData).map(key=>{
@@ -60,8 +72,10 @@ class Classify extends Component {
         window.scrollTo(0,doms[index].offsetTop)
     }
     render() {
-        const { leftMenu, currentMenu } = this.state
-        let classData = this.handleClassData()
+        const { leftMenu, currentMenu, loading } = this.state
+        const { classData } = this.props.ClassifyState
+        if(loading) return (<Loading/>)
+        let classifyData = this.handleClassData(classData)
         return (
             <div className="Classify flex">
                 <div className="leftMenu">
@@ -80,7 +94,7 @@ class Classify extends Component {
                 </div>
                 <div className="rightClass flex1">
                     {
-                        classData.map((item,index)=>{
+                        classifyData.map((item,index)=>{
                             return(<ClassBooks title={item.name} list={item.list} key={item.name}/>)
                         })
                     }
