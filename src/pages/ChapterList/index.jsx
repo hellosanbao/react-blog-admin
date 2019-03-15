@@ -24,8 +24,6 @@ class ChapterList extends Component {
         }
     }
     async componentDidMount(){
-        let st = await this.db.delDatabase()
-        console.log(st)
         const { getChapterListInfo } = this.props.ChapterListState
         let chapterListInfo = await getChapterListInfo(this.state.id,this),
             start = 0
