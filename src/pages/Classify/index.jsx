@@ -77,7 +77,7 @@ class Classify extends Component {
         if(loading) return (<Loading/>)
         let classifyData = this.handleClassData(classData)
         return (
-            <div className="Classify flex">
+            <div className="Classify flex animated fadeIn">
                 <div className="leftMenu">
                     {
                         leftMenu.map((item, index) => {

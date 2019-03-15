@@ -94,7 +94,7 @@ class Rank extends Component {
         } = this.state
         if (loading) return <Loading />
         return (
-            <div className="Rank">
+            <div className="Rank animated fadeIn">
                 <div className="header">
                     <div className="list flex">
                         {

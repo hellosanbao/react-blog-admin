@@ -58,6 +58,7 @@ class TabList extends Component {
         onToggleFilter && onToggleFilter(!this.state.showFilter)
     }
     async handleHeadClick(index) {
+        if(index == this.state.currentHead) return
         this.setState({
             currentHead: index
         })
@@ -82,7 +83,16 @@ class TabList extends Component {
             tagIndex,
             nameIndex
         })
-        this.changeTag({tag:name})
+        let tag = {
+            tag:name
+        }
+        if(name == '全部'){
+            tag = {
+                duration:'all',
+                tag:null
+            }
+        }
+        this.changeTag(tag)
         
     }
     handleCoverTagClick(nameIndex, tagIndex) {
@@ -114,6 +124,7 @@ class TabList extends Component {
     }
     async changeTag(opt){
         const { getBooksByTag, setBookList } = this.props.ThemeBookListState
+        setBookList([])
         let books = await getBooksByTag({
             ...opt,
             start:0

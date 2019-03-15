@@ -62,7 +62,7 @@ class Search extends Component {
             return <Loading/>
         }
         return (
-            <div className="Search">
+            <div className="Search animated fadeIn">
                 <form action="" onSubmit={this.submit.bind(this)}>
                     <div className="searchHeader flex-middle">
                         <input 

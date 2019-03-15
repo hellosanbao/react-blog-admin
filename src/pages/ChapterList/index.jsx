@@ -24,6 +24,8 @@ class ChapterList extends Component {
         }
     }
     async componentDidMount(){
+        let st = await this.db.delDatabase()
+        console.log(st)
         const { getChapterListInfo } = this.props.ChapterListState
         let chapterListInfo = await getChapterListInfo(this.state.id,this),
             start = 0
@@ -61,12 +63,14 @@ class ChapterList extends Component {
             return (<Loading/>)
         }
         return (
-            <div>
+            <div className="chapterList">
                 {
-                   chapterList.map(item=>{
+                   chapterList.map((item,index)=>{
                        if(item.id) {
                            return (
-                            <Link key={item.id || item.link} className="chapterListItem" to={`Read?id=${item.id || encodeURIComponent(item.link)}&title=${title}`}>{item.title}</Link>
+                            <Link key={item.id || item.link} className="chapterListItem" to={`Read?id=${item.id || encodeURIComponent(item.link)}&title=${title}`}>
+                              {index+1}. {item.title}
+                            </Link>
                            )
                        }else{
                            return (<a key={item.link} className="chapterListItem" href={item.link}>{item.title}</a>)

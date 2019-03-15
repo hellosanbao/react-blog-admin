@@ -97,9 +97,9 @@ class SearchResult extends Component {
         let tabData = await getSearchResult({ type, keyword: searchKey, start: 0, limit: 20 }, this)
         this.setState({ loading: false })
         if (type == 'book_list') {
-            this.setState({ book_list: tabData.data.ugcbooklists, bookListLoaded: true })
+            this.setState({ book_list: tabData.data.ugcbooklists || [], bookListLoaded: true })
         } else if (type == 'pic') {
-            this.setState({ pics: tabData.data.books, hasMorePic: tabData.data.books.length == 20, picLoaded: true })
+            this.setState({ pics: tabData.data.books || [], hasMorePic: tabData.data.books.length == 20, picLoaded: true })
         }
     }
     render() {
