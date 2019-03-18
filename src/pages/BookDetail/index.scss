@@ -171,6 +171,23 @@
         border-radius: 50%;
         @include boxShadow;
     }
+    .collectbtn{
+        position: fixed;
+        right: 50px;
+        bottom: 180px;
+        width: 70px;
+        height: 70px;
+        padding: 15px;
+        text-align: center;
+        background: #3989ed;
+        color: #fff;
+        z-index: 99;
+        border-radius: 50%;
+        @include boxShadow;
+        &.collect{
+            background: #bbb;
+        }
+    }
     .sourceContent{
         .title{
             font-size: 30px;

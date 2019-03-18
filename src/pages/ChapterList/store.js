@@ -1,7 +1,5 @@
 import $axios from '@src/util/request'
-import {
-    action
-} from 'mobx'
+import { action } from 'mobx'
 class ChapterListState {
     @action
     async getChapterListInfo(id,context) {
@@ -12,6 +10,7 @@ class ChapterListState {
         let result = fetchData.data
         return result
     }
+
 }
 
 export default new ChapterListState()

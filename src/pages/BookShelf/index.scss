@@ -1,11 +1,50 @@
 .BookShelf{
+    .noCollect{
+        color: $fcolor9;
+        margin-top: 300px;
+        .iconfont{
+            display: block;
+            text-align: center;
+            font-size: 200px;
+        }
+        .txt{
+            text-align: center;
+            font-size: 26px;
+            .add{
+                font-size: 30px;
+                color:$activePink;
+                text-decoration: underline;
+            }
+        }
+    }
+    .checkAll{
+        padding: 30px;
+        border-bottom: 1px solid $border;
+        font-size: 30px;
+        color: $fcolor6;
+        .iconfont{
+            color: $fcolor9;
+            width: 60px;
+            &.icon-radio-yes{
+                color: $activePink;
+            }
+        }
+    }
     .list{
-        padding: 0 30px;
+        padding: 0 30px 30px 30px;
         .item{
             margin-top:40px;
             .pic{
-                flex:0 0 90px;
+                flex:0 0 80px;
+                width: 80px;
+                height: 110px;
+                line-height: 110px;
+                text-align: center;
+                font-size: 60px;
+                color: #ddd;
+                background: #eee;
                 img{
+                    display: block;
                     width: 80px;
                     height: 110px;
                     @include boxShadow;
@@ -17,12 +56,62 @@
                 .title{
                     font-size: 30px;
                     font-weight: 600;
+                    &.add{
+                        color: $fcolor9;
+                        font-size: 28px;
+                    }
                 }
                 .desc{
                     font-size: 23px;
                     color: $fcolor9;
                 }
             }
+            .check{
+                width: 60px;
+                flex: 0 0 60px;
+                color: $fcolor9;
+                .icon-radio-yes{
+                    color: $activePink;
+                }
+            }
+        }
+    }
+    .editbtn{
+        position: fixed;
+        right: 50px;
+        bottom: 100px;
+        width: 70px;
+        height: 70px;
+        padding: 15px;
+        line-height: 70px;
+        text-align: center;
+        background: #3989ed;
+        color: #fff;
+        z-index: 99;
+        border-radius: 50%;
+        @include boxShadow;
+        font-size: 28px;
+        .iconfont{
+            font-size: 40px;
+        }
+    }
+    .delbtn{
+        position: fixed;
+        right: 50px;
+        bottom: 220px;
+        width: 70px;
+        height: 70px;
+        padding: 15px;
+        line-height: 70px;
+        text-align: center;
+        background: $activePink;
+        color: #fff;
+        z-index: 99;
+        border-radius: 50%;
+        @include boxShadow;
+        font-size: 25px;
+        .iconfont{
+            font-size: 40px;
         }
     }
 }

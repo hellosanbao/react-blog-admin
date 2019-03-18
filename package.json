@@ -82,7 +82,8 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
-    "push":"yarn build && ssh ubuntu@132.232.3.185 rm -rf /home/ubuntu/github/zhuishushenqi/build && scp -r ./build/ ubuntu@132.232.3.185:/home/ubuntu/github/zhuishushenqi/"
+    "commit":"git add . && git commit -m'push' && git push",
+    "push":"yarn commit && yarn build && ssh ubuntu@132.232.3.185 rm -rf /home/ubuntu/github/zhuishushenqi/build && scp -r ./build/ ubuntu@132.232.3.185:/home/ubuntu/github/zhuishushenqi/"
   },
   "eslintConfig": {
     "extends": "react-app",

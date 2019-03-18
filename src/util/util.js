@@ -71,15 +71,11 @@ export function local() {
   let arg = arguments
   if (arg.length == 1) {
     let val = localStorage[arg[0]]
-    try {
-      val = JSON.parse(val)
-    } catch (err) { }
+    val = val?JSON.parse(val):val
     return val
   } else {
     let sVal = arg[1]
-    try {
-      sVal = JSON.stringify(sVal)
-    } catch (err) { }
+    sVal = JSON.stringify(sVal)
     localStorage[arg[0]] = sVal
   }
 }

@@ -31,6 +31,9 @@ class Modal extends Component {
             this.setState({
                 removeMask: !this.state.show
             })
+            if(this.state.removeMask){
+                this.props.onClose()
+            }
         })
     }
     Close() {

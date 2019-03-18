@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
 import querystring from 'querystring'
 import { Link } from 'react-router-dom'
+import { local } from "@src/util/util";
+import { findIndex } from "lodash";
 
 import './index.scss'
 
@@ -11,6 +13,7 @@ import './index.scss'
 import Star from '@src/components/Star'
 import Loading from '@src/components/Loading'
 import Modal from '@src/components/Modal'
+import Toast from '@src/components/Toast'
 
 @inject('BookDetailState')
 @observer
@@ -19,17 +22,19 @@ class BookDetail extends Component {
         super(props)
         const { title, id } = querystring.parse(this.props.location.search.replace('?', ''))
         document.title = title
+        let collect = local('collectBooks') || []
         this.state = {
             showAllIntro: false,
             bookData: {},
             id,
             loading: true,
-            showSource: false
+            showSource: false,
+            isCollect: findIndex(collect,{id})>=0
         }
     }
     async componentDidMount() {
         const { getBookDetailInfo } = this.props.BookDetailState
-        const bookData = await getBookDetailInfo(this.state.id,this)
+        const bookData = await getBookDetailInfo(this.state.id, this)
         this.setState({
             bookData,
             loading: false
@@ -41,11 +46,11 @@ class BookDetail extends Component {
         })
     }
     handleTreeClick() {
-        if(this.state.bookData.chapterLast.length>1){
+        if (this.state.bookData.chapterLast.length > 1) {
             this.setState({
                 showSource: true
             })
-        }else{
+        } else {
             let item = this.state.bookData.chapterLast[0]
             this.props.history.push(`/ChapterList?id=${item._id}&title=${this.state.bookData.title}`)
         }
@@ -65,11 +70,36 @@ class BookDetail extends Component {
         }
         return text
     }
-    componentWillUnmount(){
+    collectBook() {
+        const { id, bookData } = this.state
+        let collect = local('collectBooks') || []
+        if (this.state.isCollect) {
+            this.setState({
+                isCollect: false
+            })
+            let dropCollect = collect.filter(item => {
+                return item.id != id
+            })
+            local('collectBooks', dropCollect)
+        } else {
+            this.setState({
+                isCollect: true
+            })
+            let cBook = {
+                id: id,
+                name: bookData.title,
+                cover:bookData.cover.formatImg(),
+                sub:`${new Date(bookData.updated).diff()}更新 ${bookData.lastChapter}`
+            }
+            local('collectBooks', [cBook,...collect])
+            Toast.show({content:'收藏成功'})
+        }
+    }
+    componentWillUnmount() {
         this.cancelRequest()
     }
     render() {
-        const { showAllIntro, bookData, loading, showSource } = this.state
+        const { showAllIntro, bookData, loading, showSource, isCollect } = this.state
         if (loading) {
             return (<Loading />)
         }
@@ -84,7 +114,7 @@ class BookDetail extends Component {
                         <div className="tip">
                             <span>{bookData.author}</span> | {bookData.majorCate}
                         </div>
-                        {bookData.wordCount>0?<div className="size">{bookData.wordCount.format()} 字</div>:''}
+                        {bookData.wordCount > 0 ? <div className="size">{bookData.wordCount.format()} 字</div> : ''}
                     </div>
                 </div>
                 <div className="views flex-middle">
@@ -125,7 +155,7 @@ class BookDetail extends Component {
                                 {
                                     bookData.chapterLast.map(((item, index) => {
                                         return (
-                                            <Link key={item._id} to={`/ChapterList?id=${item._id}&title=${bookData.title}`} className={`item ${index == 0?'gf':''}`}>{item.name}</Link>
+                                            <Link key={item._id} to={`/ChapterList?id=${item._id}&title=${bookData.title}`} className={`item ${index == 0 ? 'gf' : ''}`}>{item.name}</Link>
                                         )
                                     }))
                                 }
@@ -143,7 +173,7 @@ class BookDetail extends Component {
                 </div>
 
                 {
-                    bookData.coment.total>0?(
+                    bookData.coment.total > 0 ? (
                         <div className="coment">
                             <div className="title">
                                 <p><span>热门评论</span> {bookData.coment.total.format()}</p>
@@ -171,11 +201,14 @@ class BookDetail extends Component {
                                     })
                                 }
                             </div>
-                            {bookData.coment.total>3?<div className="more">查看全部{bookData.coment.total.format()}条热评</div>:''}
+                            {bookData.coment.total > 3 ? <div className="more">查看全部{bookData.coment.total.format()}条热评</div> : ''}
                         </div>
-                    ):''
+                    ) : ''
                 }
                 <Link to={`/Read?id=59155493efe79f2c46184c69&title=追书神器`} className="readbtn">开始阅读</Link>
+                <div className={`collectbtn ${isCollect ? 'collect' : ''}`} onClick={() => { this.collectBook(isCollect) }}>
+                    {isCollect ? '取消收藏' : '收藏书籍'}
+                </div>
             </div>
         )
     }
