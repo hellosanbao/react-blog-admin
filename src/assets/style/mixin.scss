@@ -15,15 +15,23 @@
 }
 
 // 阅读器设置栏主题
-
-@mixin readBarWhite {
-    .editContainer{
-        background:#fff;
+@mixin theme1 {
+    .contentText{
+        color: $fcolor5;
     }
-    .simpleBar{
-        background: #fff;
-        .iconfont{
-            color: #999;
+    .Edit{
+        .editContainer{
+        }
+        .simpleBar{
         }
     }
+}
+
+//全屏fixed
+@mixin fixedCover {
+    position: fixed;
+    left: 0;
+    right:0;
+    bottom:0;
+    top:0;
 }

@@ -1,8 +1,17 @@
 .readComponent{
-    padding: 30px;
+    .bg{
+        @include fixedCover;
+        z-index: -1;
+        background: no-repeat center/cover;
+        transition: transform .3s;
+    }
     .contentText{
+        padding: 30px;
         font-size: 30px;
         color: $fcolor5;
         line-height: 60px;
+    }
+    &.theme1{
+        @include theme1;
     }
 }

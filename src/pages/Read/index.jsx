@@ -43,6 +43,7 @@ class Read extends Component {
     }
     render(){
         const { loading, content, readInfo } = this.state
+        const { themeStyle } = this.props.ReadState
         if(loading){
             return (
                 <Loading/>
@@ -56,7 +57,8 @@ class Read extends Component {
         }
         let contentArr = content.split('\n')
         return(
-            <div className="readComponent">
+            <div className="readComponent theme1">
+                <div className="bg" style={themeStyle}></div>
                 {
                     contentArr.map((item,index)=>{
                         if(item){

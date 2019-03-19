@@ -55,7 +55,7 @@ class ChapterList extends Component {
     }
     handleClick(id,index) {
         this.setchapters(index)
-        this.props.history.push(`Read?id=${id}&title=${this.state.title}`)
+        this.props.history.push(`Read?bookId=${this.state.id}&id=${id}&title=${this.state.title}`)
     }
     handleHref(link,index){
         this.setchapters(index)
@@ -71,7 +71,7 @@ class ChapterList extends Component {
         this.cancelRequest()
     }
     render() {
-        const { chapterList, title, loading, currentChapter } = this.state
+        const { chapterList, title, loading, currentChapter, id } = this.state
         if (loading) {
             return (<Loading />)
         }
@@ -88,7 +88,7 @@ class ChapterList extends Component {
                                     key={item.id || item.link}
                                     className={`chapterListItem ${index == currentChapter ? 'active' : ''}`}
                                     onClick={() => { this.handleClick(item.id,index) }}
-                                    to={`Read?id=${item.id || encodeURIComponent(item.link)}&title=${title}`}>
+                                    to={`Read?bookId=${id}&id=${item.id || encodeURIComponent(item.link)}&title=${title}`}>
                                     {index + 1}. {item.title}
                                 </div>
                             )
