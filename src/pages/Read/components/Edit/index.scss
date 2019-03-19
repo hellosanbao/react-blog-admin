@@ -1,0 +1,42 @@
+
+.Edit{
+    .mask{
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        top:0;
+        right:0;
+        z-index: 9997;
+    }
+    .editContainer{
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        height: 600px;
+        width: 100%;
+        transform: translateZ(0);
+        transform: translateY(100%);
+        transition: all .3s;
+        z-index: 9999;
+        &.show{
+            transform: translateY(0)
+        }
+    }
+    .simpleBar{
+        box-shadow: 0 7px 10px 4px rgba(0, 0, 0, .2);
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        height: 150px;
+        width: 100%;
+        z-index: 9998;
+        text-align: center;
+        .iconfont{
+            font-size:45px;
+            font-weight: bold;
+        }
+    }
+    &.white{
+        @include readBarWhite;
+    }
+}

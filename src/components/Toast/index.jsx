@@ -15,7 +15,7 @@ class Toast extends Component {
         }
 
         ReactDOM.render(
-            <Toast {...params} onClose={closeHandle} />,
+            <Toast {...params} />,
             container
         );
         setTimeout(closeHandle,params.duration || 1000)

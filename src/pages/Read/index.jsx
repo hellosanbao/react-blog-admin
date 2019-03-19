@@ -5,6 +5,7 @@ import './index.scss'
 
 //components
 import Loading from '@src/components/Loading'
+import Edit from './components/Edit'
 
 @inject('ReadState')
 @observer
@@ -65,6 +66,7 @@ class Read extends Component {
                         }
                     })
                 }
+                <Edit ref='edit'/>
             </div>
         )
     }

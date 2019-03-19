@@ -13,3 +13,17 @@
     border-radius: 20px;
     margin-left: 20px;
 }
+
+// 阅读器设置栏主题
+
+@mixin readBarWhite {
+    .editContainer{
+        background:#fff;
+    }
+    .simpleBar{
+        background: #fff;
+        .iconfont{
+            color: #999;
+        }
+    }
+}
