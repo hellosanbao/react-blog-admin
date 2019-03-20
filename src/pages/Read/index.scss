@@ -16,6 +16,7 @@
         background: no-repeat center/cover;
         position: relative;
         z-index:100;
+        color: $fcolor5;
     }
     .readWarp{
         position: fixed;
@@ -24,10 +25,21 @@
         right:0;
         bottom:0;
         .contentText{
-            padding: 0 30px 30px;
+            padding: 0 30px 10px;
             font-size: 30px;
             color: $fcolor5;
             line-height: 60px;
+        }
+        .pageNav{
+            padding-bottom: 60px;
+            .prev{
+                padding: 20px 40px;
+                background: $activePink;
+                border-radius: 10px;
+                margin: 0 20px;
+                color: #fff;
+                font-size: 30px;
+            }
         }
     }
 }

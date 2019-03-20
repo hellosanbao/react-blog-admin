@@ -1,4 +1,5 @@
 import $axios from '@src/util/request'
+import Toast from '@src/components/Toast'
 import {
     action,
     observable,
@@ -13,6 +14,9 @@ class ReadState {
     
     //文章内容
     @observable readInfo = ''
+
+    //字体大小
+    @observable fontSize = .4
 
     //显示底阅读器操作栏
     // @observable showTool = false
@@ -48,6 +52,24 @@ class ReadState {
     @action.bound
     setDark(dark){
         this.dark = dark
+    }
+
+    //改变字体大小
+    @action.bound
+    setFontSize(flag){
+        if(flag>0){
+            if(this.fontSize>=.7) {
+                Toast.show({content:'已经是最大字体了'})
+                return
+            }
+            this.fontSize += 0.05
+        }else{
+            if(this.fontSize<=.4) {
+                Toast.show({content:'已经是最小字体了'})
+                return
+            }
+            this.fontSize -= 0.05
+        }
     }
 
     //设置主题

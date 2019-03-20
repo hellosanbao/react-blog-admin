@@ -94,7 +94,7 @@ class Edit extends Component {
     }
     render() {
         const { showEdit, showTool, showChapter, removeChapter, chapterList } = this.state
-        const { themeList, setTheme, dark, setDark, themeStyle } = this.props.ReadState
+        const { themeList, setTheme, dark, setDark, themeStyle, setFontSize, fontSize } = this.props.ReadState
         const scrollOpt = {
             bottomDir: 300
         }
@@ -126,18 +126,18 @@ class Edit extends Component {
                     )
                 }
                 <div className={`editContainer ${showEdit ? 'show' : ''}`} style={themeStyle}>
-                    <div className="editItem flex-middle">
+                    <div className="editItem flex-middle" style={{color:dark?'#bbb':'#555'}}>
                         <div className="title">字号</div>
                         <div className="fontContent flex1">
                             <div className="cal flex-middle">
-                                <p className="sub"> - </p>
-                                <p className="num"> 54 </p>
-                                <p className="add"> + </p>
+                                <p className="sub" onClick={()=>{setFontSize(-1)}}> - </p>
+                                <p className="num"> {(fontSize*10).toFixed(2)} </p>
+                                <p className="add" onClick={()=>{setFontSize(1)}}> + </p>
                             </div>
                         </div>
                         <div className="default">默认</div>
                     </div>
-                    <div className="editItem flex-middle">
+                    <div className="editItem flex-middle" style={{color:dark?'#bbb':'#555'}}>
                         <div className="title">主题</div>
                         <div className="theme flex1 flex">
                             {
