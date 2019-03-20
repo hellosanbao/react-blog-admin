@@ -73,13 +73,17 @@ class HomeMenu extends Component {
                 <HomeNav navlist={nav}/>
                 {
                     blocks.map(item=>{
-                        let blockData = {
-                            booklist:[item.books[0]],
-                            booksimplelist:item.books.splice(1,4)
+                        if(item.books[0]){
+                            let blockData = {
+                                booklist:[item.books[0]],
+                                booksimplelist:item.books.splice(1,4)
+                            }
+                            return (
+                                <ListBlock key={item._id} href={`/BlockDetail?id=${item._id}&title=${item.title}`} title={item.title} blockData={blockData} className='block' />
+                            )
+                        }else{
+                            return ''
                         }
-                        return (
-                            <ListBlock key={item._id} href={`/BlockDetail?id=${item._id}&title=${item.title}`} title={item.title} blockData={blockData} className='block' />
-                        )
                     })
                 }
                 <BookListItem href="/ThemeBookList" title="━━●精品书单●━━━━" sdList={bookList.items} className='block' />
