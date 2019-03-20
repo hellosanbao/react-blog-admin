@@ -1,3 +1,15 @@
+
+/**
+ * 
+ * 组件对象
+ * ScrollObject 包含better-scroll示例后的对象
+ * 
+ * 
+ * 事件
+ * scroll 滚动监听
+ * scrollEnd 滚定到底事件
+ */
+
 import React, { Component } from 'react'
 import BScroll from 'better-scroll'
 
@@ -10,7 +22,12 @@ class ReactScroll extends Component {
         this.opt = {
             probeType:3,
             bottomDir:100,
+            tap:true,
             click:true,
+            scrollbar: {
+                fade: true,
+                interactive: false 
+            },
             ...this.props.option
         }
         this.ScrollObject = new BScroll(`.${this.props.className.split(' ')[0]}`,this.opt)

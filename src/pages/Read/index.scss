@@ -8,14 +8,23 @@
         background: no-repeat center/cover;
         transition: transform .3s;
     }
+    .title{
+        height: 100px;
+        line-height: 100px;
+        text-align: center;
+        font-size: 34px;
+        background: no-repeat center/cover;
+        position: relative;
+        z-index:100;
+    }
     .readWarp{
         position: fixed;
         left: 0;
-        top:0;
+        top:100px;
         right:0;
         bottom:0;
         .contentText{
-            padding: 30px;
+            padding: 0 30px 30px;
             font-size: 30px;
             color: $fcolor5;
             line-height: 60px;

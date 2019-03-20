@@ -25,20 +25,10 @@ class Read extends Component {
     }
     async componentDidMount(){
         const { getReadInfo } = this.props.ReadState
-        if(this.state.id.indexOf('http://')<0){
-            var readInfo = await getReadInfo(this.state.id,this)
-            this.setState({
-                content:readInfo.cpContent || '',
-                loading:false,
-                readInfo
-            })
-        }else{
-            this.setState({
-                content:this.state.id,
-                readInfo,
-                loading:false
-            }) 
-        }
+        await getReadInfo(this.state.id,this)
+        this.setState({
+            loading:false
+        })
     }
     toggleEdit(){
         this.refs.edit.wrappedInstance.toggleEdit()
@@ -53,8 +43,9 @@ class Read extends Component {
         this.cancelRequest()
     }
     render(){
-        const { loading, content, readInfo, bookId } = this.state
-        const { themeStyle } = this.props.ReadState
+        const { loading, bookId } = this.state
+        const { themeStyle, readInfo } = this.props.ReadState
+        let content = readInfo.cpContent
         if(loading){
             return (
                 <Loading/>
@@ -70,6 +61,7 @@ class Read extends Component {
         return(
             <div className="readComponent theme1">
                 <div className="bg" style={themeStyle}></div>
+                <div className="title" style={themeStyle}>{readInfo.title}</div>
                     <ReactScroll  
                         scrollEnd={this.scrollbottom.bind(this)} 
                         scroll={this.scroll.bind(this)}

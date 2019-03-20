@@ -9,7 +9,10 @@ class ReadState {
     @observable theme = 0   
 
     //黑夜模式
-    @observable dark = false   
+    @observable dark = false  
+    
+    //文章内容
+    @observable readInfo = ''
 
     //显示底阅读器操作栏
     // @observable showTool = false
@@ -53,13 +56,14 @@ class ReadState {
         this.theme = theme
         this.dark = false
     }
-    @action
+    @action.bound
     async getReadInfo(id,context) {
         let fetchData = await $axios({
             url: '/chapter',
             data: { id }
         },context)
         let result = fetchData.data
+        this.readInfo = result
         return result
     }
 }

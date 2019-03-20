@@ -22,11 +22,19 @@
         left: 0;
         bottom: 0;
         top:0;
-        width: 500px;
+        width: 600px;
         z-index: 9998;
         background: #fff;
         .chapter{
-            
+            line-height: 100px;
+            font-size: 25px;
+            padding: 0 20px;
+            color: $fcolor7;
+            .index{
+                font-weight: 700;
+                margin-right: 10px;
+                font-size: 30px;
+            }
         }
     }
     .editContainer{
