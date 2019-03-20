@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import querystring from 'querystring'
 import { inject, observer} from 'mobx-react'
+import ReactScroll from '@src/components/ReactScroll'
 import './index.scss'
 
 //components
@@ -12,13 +13,14 @@ import Edit from './components/Edit'
 class Read extends Component {
     constructor(props){
         super(props)
-        const  { title, id }  = querystring.parse(this.props.location.search.replace('?',''))
+        const  { title, id, bookId }  = querystring.parse(this.props.location.search.replace('?',''))
         document.title = title
         this.state={
             id:decodeURIComponent(id),
             loading:true,
             content:'',
-            readInfo:{}
+            readInfo:{},
+            bookId
         }
     }
     async componentDidMount(){
@@ -38,11 +40,20 @@ class Read extends Component {
             }) 
         }
     }
+    toggleEdit(){
+        this.refs.edit.wrappedInstance.toggleEdit()
+    }
+    scrollbottom(){
+        console.log(123)
+    }
+    scroll(){
+        this.refs.edit.wrappedInstance.hideTool()
+    }
     componentWillUnmount(){
         this.cancelRequest()
     }
     render(){
-        const { loading, content, readInfo } = this.state
+        const { loading, content, readInfo, bookId } = this.state
         const { themeStyle } = this.props.ReadState
         if(loading){
             return (
@@ -59,16 +70,22 @@ class Read extends Component {
         return(
             <div className="readComponent theme1">
                 <div className="bg" style={themeStyle}></div>
-                {
-                    contentArr.map((item,index)=>{
-                        if(item){
-                            return <p className='contentText' key={`content-${index}`}>{item}</p>
-                        }else{
-                            return ''
+                    <ReactScroll  
+                        scrollEnd={this.scrollbottom.bind(this)} 
+                        scroll={this.scroll.bind(this)}
+                        className="readWarp" 
+                        onClick={this.toggleEdit.bind(this)}>
+                        {
+                            contentArr.map((item,index)=>{
+                                if(item){
+                                    return <p onClick={this.toggleEdit.bind(this)} className='contentText' key={`content-${index}`}>{item}</p>
+                                }else{
+                                    return ''
+                                }
+                            })
                         }
-                    })
-                }
-                <Edit ref='edit'/>
+                    </ReactScroll>
+                <Edit bookId={bookId} ref='edit'/>
             </div>
         )
     }

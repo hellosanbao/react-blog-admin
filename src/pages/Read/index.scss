@@ -1,17 +1,24 @@
 .readComponent{
+    &.theme1{
+        @include theme1;
+    }
     .bg{
         @include fixedCover;
         z-index: -1;
         background: no-repeat center/cover;
         transition: transform .3s;
     }
-    .contentText{
-        padding: 30px;
-        font-size: 30px;
-        color: $fcolor5;
-        line-height: 60px;
-    }
-    &.theme1{
-        @include theme1;
+    .readWarp{
+        position: fixed;
+        left: 0;
+        top:0;
+        right:0;
+        bottom:0;
+        .contentText{
+            padding: 30px;
+            font-size: 30px;
+            color: $fcolor5;
+            line-height: 60px;
+        }
     }
 }

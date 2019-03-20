@@ -19,6 +19,7 @@ const BookListDetail = loadable(()=>import('@pages/BookListDetail/index.jsx'))
 const ChapterList = loadable(()=>import('@pages/ChapterList/index.jsx'))
 const ClassListDetail = loadable(()=>import('@pages/ClassListDetail/index.jsx'))
 const Read = loadable(()=>import('@pages/Read/index.jsx'))
+const Test = loadable(()=>import('@pages/Test/index.jsx'))
 
 const Routes = () => (
     <BrowserRouter>
@@ -39,6 +40,7 @@ const Routes = () => (
                     <Route path="/ChapterList" component={ChapterList}/>
                     <Route path="/ClassListDetail/:alias/:title" component={ClassListDetail}/>
                     <Route path="/Read" component={Read}/>
+                    <Route path="/Test" component={Test}/>
                     {/* 匹配不到路由显示组件 */}
                     {/* <Route component={PageLoad}/> */}
                     {/* 匹配不到路由跳转路由 */}

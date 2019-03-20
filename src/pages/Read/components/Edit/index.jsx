@@ -5,9 +5,7 @@ import querystring from 'querystring'
 import { scrollBottom } from '@src/util/util'
 import './index.scss'
 
-@inject('ChapterListState')
-@inject('ReadState')
-@withRouter
+@inject('ChapterListState','ReadState')
 @observer
 class Edit extends Component {
     state={
@@ -18,7 +16,7 @@ class Edit extends Component {
         removeChapter:true
     }
     async componentWillMount(){
-        const { bookId} = querystring.parse(this.props.location.search.replace('?', ''))
+        const { bookId} = this.props
         const { getChapterListInfo } = this.props.ChapterListState
         let chapterListInfo = await getChapterListInfo(bookId, this),
             start = 0
@@ -27,7 +25,7 @@ class Edit extends Component {
             chapterList: this.getCurentList(start, chapterListInfo.chapters)
         })
         start += 20
-        console.log(this.state.chapterList)
+        // console.log(this.state.chapterList)
         scrollBottom(200, async () => {
             if (start < chapterListInfo.chapters.length) {
                 let chapterList = this.state.chapterList.concat(this.getCurentList(start, chapterListInfo.chapters))
@@ -52,10 +50,16 @@ class Edit extends Component {
             showEdit:!this.state.showEdit
         })
     }
-    hideEdit(){
+    toggleEdit(){
         this.setState({
             showEdit:false,
             showTool:!this.state.showTool
+        })
+    }
+    hideTool(){
+        this.setState({
+            showEdit:false,
+            showTool:false
         })
     }
     hideChapter(){
@@ -88,7 +92,7 @@ class Edit extends Component {
         const { themeList, setTheme, dark, setDark, themeStyle } = this.props.ReadState
         return(
             <div className="Edit"> 
-                <div className="mask" onClick={this.hideEdit.bind(this)}></div>
+                {/* <div className="mask" onClick={this.hideEdit.bind(this)}></div> */}
                 {
                     removeChapter?'':(
                         <div className="chapters">
