@@ -54,17 +54,17 @@ class ChapterList extends Component {
         return arr
     }
     handleClick(id,index) {
-        this.setchapters(index)
+        this.setchapters({index,id})
         this.props.history.push(`Read?bookId=${this.state.id}&id=${id}&title=${this.state.title}`)
     }
     handleHref(link,index){
-        this.setchapters(index)
+        this.setchapters({index,link})
         window.location.href = link
     }
-    setchapters(index){
+    setchapters(data){
         let Chapters = local('curChapters') || {}
         let curent = {}
-        curent[this.state.id] = index
+        curent[this.state.id] = data
         local('curChapters',{...Chapters,...curent})
     }
     componentWillUnmount() {
@@ -76,7 +76,7 @@ class ChapterList extends Component {
             return (<Loading />)
         }
         return (
-            <div className="chapterList">
+            <div className="chapterList animated fadeIn">
                 {
                     chapterList.map((item, index) => {
                         if (item.id) {
@@ -86,17 +86,20 @@ class ChapterList extends Component {
                                 // </Link>
                                 <div
                                     key={item.id || item.link}
-                                    className={`chapterListItem ${index == currentChapter ? 'active' : ''}`}
+                                    className={`chapterListItem flex-between ${index == currentChapter.index ? 'active' : ''}`}
                                     onClick={() => { this.handleClick(item.id,index) }}
                                     to={`Read?bookId=${id}&id=${item.id || encodeURIComponent(item.link)}&title=${title}`}>
-                                    {index + 1}. {item.title}
+                                    <p>{index + 1}. {item.title}</p> 
+                                    {
+                                        item.isVip?<i className="iconfont icon-VIP"></i>:''
+                                    }
                                 </div>
                             )
                         } else {
                             return (
                                 <div
                                     key={item.link}
-                                    className={`chapterListItem ${index == currentChapter ? 'active' : ''}`}
+                                    className={`chapterListItem ${index == currentChapter.index ? 'active' : ''}`}
                                     onClick={()=>{this.handleHref(item.link,index)}}>
                                     {item.title}
                                 </div>

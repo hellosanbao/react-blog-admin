@@ -30,10 +30,16 @@
             font-size: 25px;
             padding: 0 20px;
             color: $fcolor7;
+            &.active{
+                color: $activePink;
+            }
             .index{
                 font-weight: 700;
                 margin-right: 10px;
                 font-size: 30px;
+            }
+            .iconfont{
+                color: $activePink;
             }
         }
     }

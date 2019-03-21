@@ -23,7 +23,8 @@ class Read extends Component {
         }
     }
     async componentDidMount() {
-        const { getReadInfo } = this.props.ReadState
+        const { getReadInfo, initCurChapter } = this.props.ReadState
+        initCurChapter(this.state.bookId)
         await getReadInfo(this.state.id, this)
         this.setState({
             loading: false
@@ -36,7 +37,12 @@ class Read extends Component {
         console.log(123)
     }
     scroll() {
-        this.refs.edit.wrappedInstance.hideTool()
+        if(this.refs.edit.wrappedInstance.state.showTool){
+            this.refs.edit.wrappedInstance.hideTool()
+        }
+    }
+    back(){
+        this.props.history.go(-1)
     }
     componentWillUnmount() {
         this.cancelRequest()
@@ -51,14 +57,19 @@ class Read extends Component {
             )
         }
         if (readInfo.isVip) {
-            return (<div>该章节为收费章节</div>)
+            return (
+                <div className='vipTs'>
+                    <p className="txt">该章节需要vip才能阅读</p>
+                    <p className="backBtn" onClick={this.back.bind(this)}>返回</p>
+                </div>
+            )
         }
         if (!content) {
             return (<div>没有获取到任何内容</div>)
         }
         let contentArr = content.split('\n')
         return (
-            <div className="readComponent theme1">
+            <div className="readComponent theme1 animated FadeIn">
                 <div className="bg" style={themeStyle}></div>
                 <div className="title" style={themeStyle}>{readInfo.title}</div>
                 <ReactScroll

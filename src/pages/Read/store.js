@@ -1,5 +1,7 @@
 import $axios from '@src/util/request'
+import { local } from "@src/util/util";
 import Toast from '@src/components/Toast'
+
 import {
     action,
     observable,
@@ -52,6 +54,14 @@ class ReadState {
         }
 
         return themeStyle
+    }
+
+    //初始化查询当前章节
+    @action.bound
+    initCurChapter(id){
+        let currentChapters = local('curChapters') || {}
+        let curp = currentChapters[id] || {}
+        this.currentChapter = curp.index || 0
     }
     
     //黑夜模式

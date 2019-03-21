@@ -1,13 +1,16 @@
 .chapterList{
     padding: 0 30px;
     .chapterListItem{
-        display: block;
         height: 100px;
         line-height: 100px;
         border-bottom: 1px solid $border;
         color:$fcolor9;
         font-size: 28px;
         &.active{
+            color: $activePink;
+        }
+        .iconfont{
+            font-size: 40px;
             color: $activePink;
         }
     }

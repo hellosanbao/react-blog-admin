@@ -9,7 +9,7 @@ class ReactSwiper extends Component {
             <div className="home-nav flex">
                 {
                     navlist.map((item,index) => {
-                        if(index == 3) return ''
+                        if(index == 3 || index == 4) return ''
                         return (
                             <Link key={item.img} to={item.route} className="nav-item">
                                 <img src={item.img} alt="" />

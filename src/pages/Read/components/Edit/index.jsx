@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
+import { local } from '@src/util/util'
+
+//components
 import ReactScroll from '@src/components/ReactScroll'
+
 import './index.scss'
 
 @inject('ChapterListState', 'ReadState')
@@ -49,8 +53,16 @@ class Edit extends Component {
     }
     changeChapter(index){
         const { checkChapter } = this.props.ReadState
+        const { chapterList } = this.state
+        this.setchapters({index,id:chapterList[index].id})
         this.hideChapter()
         checkChapter(index)
+    }
+    setchapters(data){
+        let Chapters = local('curChapters') || {}
+        let curent = {}
+        curent[this.props.bookId] = data
+        local('curChapters',{...Chapters,...curent})
     }
     showEditHandle() {
         this.setState({
@@ -96,7 +108,7 @@ class Edit extends Component {
     }
     render() {
         const { showEdit, showTool, showChapter, removeChapter, chapterList } = this.state
-        const { themeList, setTheme, dark, setDark, themeStyle, setFontSize, fontSize } = this.props.ReadState
+        const { themeList, setTheme, dark, setDark, themeStyle, setFontSize, fontSize, currentChapter } = this.props.ReadState
         const scrollOpt = {
             bottomDir: 300
         }
@@ -115,11 +127,16 @@ class Edit extends Component {
                                 {
                                     chapterList.map((item, index) => {
                                         return <div
-                                                className="chapter line-clamp1"
+                                                className={`chapter flex-between ${currentChapter==index?'active':''}`}
                                                 onClick={()=>{this.changeChapter(index)}}
                                                 key={item.id + index || item.link + index}>
-                                                <span className="index">{index+1}.</span>
-                                                {item.title}
+                                                <p className="line-clamp1">
+                                                    <span className="index">{index+1}.</span>
+                                                    {item.title}
+                                                </p>
+                                                {
+                                                    item.isVip?<i className="iconfont icon-VIP"></i>:''
+                                                }
                                         </div>
                                     })
                                 }

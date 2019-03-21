@@ -29,15 +29,19 @@ class BookDetail extends Component {
             id,
             loading: true,
             showSource: false,
-            isCollect: findIndex(collect,{id})>=0
+            isCollect: findIndex(collect,{id})>=0,
+            currentChapte:{}
         }
     }
     async componentDidMount() {
         const { getBookDetailInfo } = this.props.BookDetailState
         const bookData = await getBookDetailInfo(this.state.id, this)
+        let currentChapters = local('curChapters') || {}
+        let currentChapter = currentChapters[bookData.chapterLast[0]._id] || 0
         this.setState({
             bookData,
-            loading: false
+            loading: false,
+            currentChapter
         })
     }
     handleMoreIntroClick() {
@@ -95,16 +99,25 @@ class BookDetail extends Component {
             Toast.show({content:'收藏成功'})
         }
     }
+    handleReadClick(){
+        const { bookData, currentChapter} = this.state
+        if(currentChapter.id){
+            this.props.history.push(`/Read?bookId=${bookData.chapterLast[0]._id}&id=${currentChapter.id}&title=${bookData.title}`)
+        }else if(currentChapter.link){
+            window.location.href = currentChapter.link
+        }else{
+            this.props.history.push(`/ChapterList?id=${bookData.chapterLast[0]._id}&title=${bookData.title}`)        }
+    }
     componentWillUnmount() {
         this.cancelRequest()
     }
     render() {
-        const { showAllIntro, bookData, loading, showSource, isCollect } = this.state
+        const { showAllIntro, bookData, loading, showSource, isCollect, currentChapter } = this.state
         if (loading) {
             return (<Loading />)
         }
         return (
-            <div className="BookDetail">
+            <div className="BookDetail animated fadeIn">
                 <div className="simperInfo flex">
                     <div className="pic">
                         <img src={bookData.cover.formatImg()} alt="" />
@@ -205,7 +218,10 @@ class BookDetail extends Component {
                         </div>
                     ) : ''
                 }
-                <Link to={`/Read?id=59155493efe79f2c46184c69&title=追书神器`} className="readbtn">开始阅读</Link>
+                
+                <div onClick={this.handleReadClick.bind(this)} className="readbtn">{currentChapter.index>0?'继续阅读':'开始阅读'}</div>
+
+                {/* <Link to={`/Read?bookId=${bookData.chapterLast[0]._id}&id=${currentChapter.id}&title=${bookData.title}`} className="readbtn">开始阅读</Link> */}
                 <div className={`collectbtn ${isCollect ? 'collect' : ''}`} onClick={() => { this.collectBook(isCollect) }}>
                     {isCollect ? '取消收藏' : '收藏书籍'}
                 </div>
