@@ -19,7 +19,6 @@ class Read extends Component {
             id: decodeURIComponent(id),
             loading: true,
             content: '',
-            readInfo: {},
             bookId
         }
     }
@@ -44,7 +43,7 @@ class Read extends Component {
     }
     render() {
         const { loading, bookId } = this.state
-        const { themeStyle, readInfo, fontSize } = this.props.ReadState
+        const { themeStyle, readInfo, fontSize, checkChapter } = this.props.ReadState
         let content = readInfo.cpContent
         if (loading) {
             return (
@@ -83,8 +82,8 @@ class Read extends Component {
                         })
                     }
                     <div className="pageNav flex-middle flex-center">
-                        <div className="prev">上一章</div>
-                        <div className="prev">下一章</div>
+                        <div className="prev" onClick={()=>{checkChapter('prev')}}>上一章</div>
+                        <div className="prev" onClick={()=>{checkChapter('next')}}>下一章</div>
                     </div>
                 </ReactScroll>
                 <Edit bookId={bookId} ref='edit' />

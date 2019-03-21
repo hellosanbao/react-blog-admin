@@ -18,6 +18,12 @@ class ReadState {
     //字体大小
     @observable fontSize = .4
 
+    //章节列表
+    @observable chapterList = []
+
+    //当前章节
+    @observable currentChapter = 0
+
     //显示底阅读器操作栏
     // @observable showTool = false
 
@@ -54,6 +60,39 @@ class ReadState {
         this.dark = dark
     }
 
+    //初始化章节列表
+    @action.bound
+    initChapterList(list){
+        this.chapterList = list || []
+    }
+
+    //上一章/下一章/跳章
+    @action.bound
+    checkChapter(flag){
+        if(flag=='next'){
+            if(this.currentChapter >= this.chapterList.length){
+                Toast.show({content:'已经是最后一章了'})
+                return
+            }
+            this.currentChapter+=1
+            let id = this.chapterList[this.currentChapter].id
+            this.getReadInfo(id)
+        }else if(flag=='prev'){
+            if(this.currentChapter==0){
+                Toast.show({content:'已经是第一章了'})
+                return
+            }
+            this.currentChapter-=1 
+            let id = this.chapterList[this.currentChapter].id
+            this.getReadInfo(id)
+        }else{
+            if(flag<0) return
+            this.currentChapter = flag
+            let id = this.chapterList[this.currentChapter].id
+            this.getReadInfo(id)
+        }
+    }
+
     //改变字体大小
     @action.bound
     setFontSize(flag){
@@ -78,13 +117,18 @@ class ReadState {
         this.theme = theme
         this.dark = false
     }
+
+    //获取章节内容
     @action.bound
     async getReadInfo(id,context) {
+        Toast.showLoading()
         let fetchData = await $axios({
             url: '/chapter',
             data: { id }
         },context)
+        Toast.hideLoading()
         let result = fetchData.data
+        this.readInfo = ''
         this.readInfo = result
         return result
     }

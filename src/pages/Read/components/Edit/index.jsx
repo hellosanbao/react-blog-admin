@@ -16,9 +16,11 @@ class Edit extends Component {
     async componentWillMount() {
         const { bookId } = this.props
         const { getChapterListInfo } = this.props.ChapterListState
+        const { initChapterList } = this.props.ReadState
         this.chapterListInfo = await getChapterListInfo(bookId, this)
         this.start = 0
         this.limit = 100
+        initChapterList(this.chapterListInfo.chapters)
         this.setState({
             chapterList: this.getCurentList(this.start, this.chapterListInfo.chapters)
         })
@@ -45,10 +47,10 @@ class Edit extends Component {
         }
         return arr
     }
-    changeChapter(id){
-        const { getReadInfo } = this.props.ReadState
+    changeChapter(index){
+        const { checkChapter } = this.props.ReadState
         this.hideChapter()
-        getReadInfo(id,this)
+        checkChapter(index)
     }
     showEditHandle() {
         this.setState({
@@ -114,7 +116,7 @@ class Edit extends Component {
                                     chapterList.map((item, index) => {
                                         return <div
                                                 className="chapter line-clamp1"
-                                                onClick={()=>{this.changeChapter(item.id)}}
+                                                onClick={()=>{this.changeChapter(index)}}
                                                 key={item.id + index || item.link + index}>
                                                 <span className="index">{index+1}.</span>
                                                 {item.title}
