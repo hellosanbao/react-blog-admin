@@ -7,6 +7,7 @@ class App extends Component {
   render() {
     return (
       <Provider {...stores} history = {this.props.history}>
+        111
         <Route/>
       </Provider>
     );
