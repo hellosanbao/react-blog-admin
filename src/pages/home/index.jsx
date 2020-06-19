@@ -43,7 +43,7 @@ class Home extends Component {
         homeContainer.slideTo(index, 0, false)
     }
     render() {
-        return <div style="height:100px;font-size:20px;text-align:center;">网站维护中敬请期待</div>
+        return <div style="height:100px;font-size:20px;text-align:center;">网站维护中敬请期待!</div>
         return (
             <div className="home">
                 <div className="headFix">
