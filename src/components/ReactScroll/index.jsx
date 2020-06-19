@@ -50,9 +50,9 @@ class ReactScroll extends Component {
 
         })
     }
-    componentWillUnMount() {
-        this.ScrollObject.destory()
-    }
+    // componentWillUnMount() {
+    //     this.ScrollObject.destory()
+    // }
     render() {
         return (
             <div className={this.props.className}>
