@@ -20,37 +20,37 @@ class ReactScroll extends Component {
     ScrollObject = null
     componentDidMount() {
         this.opt = {
-            probeType:3,
-            bottomDir:100,
-            tap:true,
-            click:true,
+            probeType: 3,
+            bottomDir: 100,
+            tap: true,
+            click: true,
             scrollbar: {
                 fade: true,
-                interactive: false 
+                interactive: false
             },
             ...this.props.option
         }
-        this.ScrollObject = new BScroll(`.${this.props.className.split(' ')[0]}`,this.opt)
+        this.ScrollObject = new BScroll(`.${this.props.className.split(' ')[0]}`, this.opt)
         this.scrollBottom()
     }
-    scrollBottom(){
-        const { scroll,scrollEnd  } = this.props
-        let bottomDir = this.opt.bottomDir>=0?this.opt.bottomDir:0
+    scrollBottom() {
+        const { scroll, scrollEnd } = this.props
+        let bottomDir = this.opt.bottomDir >= 0 ? this.opt.bottomDir : 0
         let end = false
-        this.ScrollObject.on('scroll',()=>{
+        this.ScrollObject.on('scroll', () => {
             scroll && scroll()
-            if( this.ScrollObject.y - this.ScrollObject.maxScrollY <=bottomDir ){
-                if(!end){
+            if (this.ScrollObject.y - this.ScrollObject.maxScrollY <= bottomDir) {
+                if (!end) {
                     scrollEnd && scrollEnd()
                     end = true
                 }
-            }else{
+            } else {
                 end = false
             }
-            
+
         })
     }
-    componentWillUnMount(){
+    componentWillUnMount() {
         this.ScrollObject.destory()
     }
     render() {
