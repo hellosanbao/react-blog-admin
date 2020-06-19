@@ -39,11 +39,10 @@ class Home extends Component {
     }
     menuChangeEnd(index) {
         const { homeContainer } = this.refs.homeContainer
-        if(homeContainer.realIndex === index) return
+        if (homeContainer.realIndex === index) return
         homeContainer.slideTo(index, 0, false)
     }
-    render() {
-        return <div style="height:100px;font-size:20px;text-align:center;">网站维护中敬请期待! </div>
+    render1() {
         return (
             <div className="home">
                 <div className="headFix">
@@ -67,6 +66,9 @@ class Home extends Component {
                 </ReactSwiper> */}
             </div>
         )
+    }
+    render() {
+        return (<div className="weihu">网站维护中!</div>)
     }
 }
 
